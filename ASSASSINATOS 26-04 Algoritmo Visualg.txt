@@ -1,0 +1,497 @@
+algoritmo "semnome"
+// Função :
+// Autor :
+// Data : 23/04/2017
+// Seção de Declarações
+var nivel, quarto, quarto1, quarto2, quarto3, quarto4, i, i2,i3,i4, arma, arma2, arma3, c, c2, l, l2, l3, l4 : inteiro // As variáveis i, i2, i3 i4 são contadores para evitar que o jogador faça a fase mais de uma vez
+bolsa, det1, susp, senha :  caractere                                                                   //As variáveis c, c1 são contadores de cenas para encerrar as repetições
+inicio
+Escreval("      MHMUSMMHM:'MMMM!:MHMMSUMHMM!!MHMM'(MHSUMSMMMSMHMSMMUSSSSMMM'LMHMM!!MMM")
+Escreval("      HMM  MHM    MM    MMM  MHM    MM    M``M LMU MHM !M`    HU   `MM    MM")
+Escreval("      HMM  HMM MM LL MM MHM  MMM MM UL MH M``M  MU MH:  MMM (MM 'MH UH MM UM")
+Escreval("      HM:  !HM !MMMU (MMMM:  (HM :MMMU (MMM``M  7U MH S MMH 7MM MHM 'M (MMMH")
+Escreval("      MH (7 MM!   MM`  'MM L7 MM'   MM   'M``M : U HM M 7MH 7MH MMH' M'  `MM")
+Escreval("      HM 7L MMMM( :HMM! UM 77 MMMM( LHMH! M``M M 7 HL 7' MH 7MM MHM` HMM: LH")
+Escreval("      ML    (H MM'`' MM (:    LL MM !'`MM S``M ML  M     MM 7HM UMM :( MM :M")
+Escreval("      M !MM( M  ! LH '` H !MM' M  ' UH '` M``M MM  M HMM 7M 7MM! '  MM `' UH")
+Escreval("      M`HMHM'MU` :MML  SM`HHMH'MS` (MM7  LM!!M`MM('U`MHM!'M'LHMM( 'HMMS  7MM")
+Escreval("      HMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHMHM")
+
+Escreval ("")
+Escreval ("Para iniciar o jogo selecione uma das opções abaixo, caso queira sair pressione -1.")
+Escreval ("")
+Escreval ("                    Selecione o nível que deseja jogar:")
+Escreval ("")
+Escreval ("                              1–Normal")
+Escreval ("                              2-Difícil")
+Escreval ("")
+leia (nivel)
+Se nivel=1 entao
+   Escreval ("")
+   Escreval ("Insira seu nome")
+   Leia (det1)
+fimse
+Limpatela
+Escreval ("2017. Noite fria e silenciosa em Curitiba. Quando de repente:")
+Escreval ("")
+Escreval ("AAAAAAAHHHHHHHH")
+Escreval ("")
+Escreval ("Mas que foi isso?")
+Escreval ("Por aqui rápido!")
+Escreval ("Os gritos vêm do apartamento das Senhoritas Espandal.")
+Escreval ("")
+Escreval ("SOCORRO!")
+Escreval ("")
+Escreval ("O portão do prédio está trancado.")
+Escreval ("")
+Escreval ("EEEEEEEEE!")
+Escreval ("")
+Escreval ("Para trás por favor, sou policial.")
+Escreval ("Por aqui senhor.")
+Escreval ("Os gritos pararam...")
+Escreval ("")
+Escreval ("As senhoritas Espandal moram no 3° andar.")
+Escreval ("Vamos logo.")
+Escreval ("Tok, Tok. Aqui é a polícia, está tudo bem?")
+Escreval ("Ninguém responde, então o policial decide arrombar a porta.")
+Escreval ("Ó meu Deus!")
+Escreval ("")
+Escreval ("Ao entrarem no quarto encontram uma cena horrível.")
+Escreval ("Todos os móveis estão quebrados e muito sangue se encontra")
+Escreval ("esparramado pelo chão.")
+Escreval ("")
+Escreval ("Uma das pessoas que subiu junto com o policial pergunta:")
+Escreval ("")
+Escreval ("Onde estão as Espandal?")
+Escreval ("")
+Escreval ("Sua missão nessa cena e achar os corpos das vítimas, para encontra-los")
+Escreval ("você dispõe de 4 locais exploráveis nesse quarto.")
+Escreval ("")
+Escreval ("Selecione as opções de 1 à 4, se errar irá iniciar novamente.")
+Escreval ("")
+Escreval ("Boa sorte!")
+c <- 0
+i <- 0
+i2 <- 0
+i3 <- 0
+i4 <- 0
+Enquanto c<=3 faca
+   Escreval ("")
+   Escreval ("Selecione abaixo um dos cantos do quarto das senhoritas Espandal.")
+   Escreval ("")
+   Escreval ("1 - Canto direito do quarto, próximo ao guarda roupas.")
+   Escreval ("2 - Canto esquerdo, próximo a chaminé.")
+   Escreval ("3 - Janela central do quarto.")
+   Escreval ("4 - Camas das vítimas.")
+   Leia (quarto)
+   Se quarto=1 Entao
+      limpatela
+      escreval ("1- Canto direito do quarto, próximo ao guarda roupas.")
+      Escreval ("")
+      Se i=1 entao
+         Escreval ("")
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+         Escreval ("")
+         Escreval ("")
+      Senao
+         Escreval ("Desafio 1 - Descubra a sequência lógica da dízima periódica através")
+         Escreval ("do texto abaixo:")
+         Escreval ("")
+         Escreval ("Quando avanço levo um, se deixo de seguir quero dividir, mas não sem deixar")
+         Escreval ("de ganhar, pois quem volta perde e multiplica. Não quero ser indeciso,")
+         Escreval ("quero ver se saber quem sou, pois nunca terei fim.")
+         Escreval ("")
+         Escreval ("Qual dízima periódica abaixo refere-se ao texto acima.")
+         Escreval ("1) 1,1,1,2,1,2...")
+         Escreval ("2) 1,2,1,3,1,0...")
+         Escreval ("3) 1,2,1,2,1,2...")
+         Escreval ("4) 1,2,3,1,2,3...")
+         Escreval ("")
+         leia (quarto1)
+         Se quarto1=3 entao
+            limpatela
+            Escreval ("Parabéns você encontrou um cabelo que nesse momento foi")
+            Escreval ("armazenado em sua bolsa")
+            bolsa <- "cabelo"
+            c <- 1+c
+            i <- 1
+         Senao
+            Limpatela
+            Escreval ("")
+            Escreval ("Infelizmente você não acertou, tente novamente.")
+         fimse
+      fimse
+   fimse
+   Se quarto=2 Entao
+      limpatela
+      escreval ("2 - Canto esquerdo, próximo a chaminé.")
+      Escreval ("")
+      Se i2=1 entao
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+      Senao
+         Escreval ("Olhem acho que o assassino fugiu pela chaminé, porque as cinzas")
+         Escreval ("estão espalhadas pelo chão.")
+         Escreval ("")
+         Escreval ("Quando o detetive ", det1, " chega próximo a chaminé avista uma folha")
+         Escreval ("de papel que leva a sua mão e tenta")
+         Escreval ("decifrar a seguinte mensagem")
+         Escreval ("")
+         Escreval ("p - quero mais")
+         Escreval ("q - tudo faz sentido")
+         Escreval ("r - penso em levar alguém comigo")
+         Escreval ("s – sei")
+         Escreval ("v - ou")
+         Escreval ("^ - e")
+         Escreval ("~ - não")
+         Escreval ("-> - se...,então")
+         Escreval (", - (...)")
+         Escreval ("Com esse conhecimento decifre a mensagem substituindo as letras pelas frases.")
+         Escreval ("")
+         Escreval ("Não quero mais e nada faz sentido, mas penso em levar alguém comigo ou não sei,")
+         Escreval (" se quero mais, então tudo faz sentido.")
+         Escreval ("1)(p ^ ~q) ^ (r v ~s) p ^ q")
+         Escreval ("2)(~p^~q) v (r v s) p -> q")
+         Escreval ("3) ~p ^ ~q ^ r v ~s ^ p v ~q")
+         Escreval ("4)(~p ^ ~q) ^ (r v ~s) p -> q")
+         Escreval ("")
+         leia (quarto2)
+         Se quarto2=4 entao
+            limpatela
+            Escreval ("")
+            Escreval ("Parabéns você encontrou a arma do crime")
+            Escreval ("")
+            Escreval ("Navalha")
+            bolsa <- "navalha"
+            c<-1+c
+            i2<-1
+            Escreval ("Como o detetive ", det1," estava próximo do chão enquanto desvendava")
+            Escreval ("o código por trás da mensagem, observa que uma gota de sangue que pinga")
+            Escreval (" constantemente no meio do chão abaixo da saída da fumaça. Logo pensa:")
+            Escreval ("Mas...como, vou ver o há dentro da chaminé")
+            Escreval ("Quando o detetive ", det1," olha pela abertura da chaminé se depara com uma")
+            Escreval ("cena assustadora. O corpo de uma das vítimas.")
+            Escreval ("")
+            Escreval ("O meu Deus! É o corpo da senhorita Vanessa Epandal")
+            Escreval ("")
+            Escreval ("Parabéns detetive ", det1," Você encontrou o corpo de uma das vítimas")
+            Escreval ("")
+         Senao
+            Limpatela
+            Escreval ("")
+            Escreval ("Infelizmente você não acertou, tente novamente.")
+         Fimse
+      Fimse
+   fimse
+   Se quarto=3 entao
+      limpatela
+      Escreval ("3-Janela central da sala.")
+      Escreval ("")
+      Se i3=1 entao
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+      Senao
+         Escreval ("")
+         Escreval ("Assim como na anatomia humana o html possui um corpo e uma cabeça.")
+         Escreval ("Fazendo uma breve analogia com assunto")
+         Escreval ("")
+         Escreval ("Desvende o misterio por trás da marca escrita na parede do quarto")
+         Escreval ("")
+         Escreval ("")
+         Escreval ("<html>")
+         Escreval ("<head><title> ASSASSINATO <\title><\head>")
+         Escreval ("<body bgcolor=black>")
+         Escreval ("<br>")
+         Escreval ("<font face=Arial size=5 color=white> Segredos <\font>")
+         Escreval ("<br>")
+         Escreval ("<br>")
+         Escreval ("<p align='justify'> Pleonasmo segundo o dicionário online Dicio significa.")
+         Escreval (" Repetição de uma palavra ou conceito, sendo seu uso correto em casos cujo")
+         Escreval (" propósito é enfatizar ou intensificar o que está sendo dito: chorar um pranto.")
+         Escreval (" Utilização excessiva de palavras para expressar um ponto de vista.")
+         Escreval ("Inutilidade; qualidade daquilo que é inútil ou está em excesso.<\p>")
+         Escreval ("<br>")
+         Escreval ("<p align='left'> Sabendo-se essa definição descubra qual frase abaixo contém")
+         Escreval ("três pleonasmos em sua construção:<p>")
+         Escreval ("<p align='left'>")
+         Escreval ("1) Me sorri um sorriso pontual e me beija com a boca de hortelã.")
+         Escreval ("(Chico Buarque)<\p>")
+         Escreval ("<p align='left'>")
+         Escreval ("2) Todos subiram para cima do palco, mas João não satisfeito desceu")
+         Escreval (" para baixo da galeria<p>")
+         Escreval ("<p align='left'>")
+         Escreval ("3) Nunca te vi, mas nós temos um elo de ligação.<\p>")
+         Escreval ("<p align='left'>")
+         Escreval ("4) Eu tenho certeza absoluta que te vi juntamente com ela, não tenho")
+         Escreval (" outra alternativa a não ser te deixar<\p>")
+         Escreval ("<br>")
+         Escreval ("<\body>")
+         Escreval ("<\html>")
+         Escreval ("")
+         Escreval ("Detetive ", Det1, " conseguiu descobrir o misterio? Digite sua resposta:")
+         Escreval ("")
+         leia (quarto3)
+         Se quarto3=4 entao
+            limpatela
+            i3<-1
+            c<-1+c
+            Escreval ("")
+            Escreval ("")
+            Escreval ("Após ter descoberto a mensagem escondida na parede do quarto, " ,Det1, " avista o")
+            Escreval ("corpo de uma das senhoritas Espandal no patio do apartamento.")
+            Escreval ("")
+            Escreval ("Parabéns você descobriu onde está o corpo de uma das vítimas")
+         Senao
+            limpatela
+            Escreval ("Infelizmente você não conseguiu, tente mais vez")
+            Escreval ("")
+            Escreval ("")
+         Fimse
+      Fimse
+   fimse
+   Se quarto=4 entao
+      Se i4=1 entao
+         limpatela
+         Escreval ("")
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+         Escreval ("")
+      Senao
+         limpatela
+         Escreval ("4-Camas das vítimas.")
+         Escreval ("")
+         Escreval ("Mais próximo as camas das vítimas o detetive ", det1, " procura pistas ")
+         Escreval ("que possam leva-lo a encontrar o assassino. Quando avista uma pequena")
+         Escreval ("placa com uma sequência númerica lógica. Mas que números são esses? Será")
+         Escreval (" a senha de alguma coisa, qual é o último número? ",det1, " decubra qual")
+         Escreval ("número falta na sequência")
+         Escreval ("0,10,19,27,34,40,45,49,52,54,?")
+         Escreval ("1) 50")
+         Escreval ("2) 55")
+         Escreval ("3) 54")
+         Escreval ("4) 53")
+         leia (quarto4)
+         Se quarto4=2 entao
+            limpatela
+            Escreval ("")
+            Escreval ("Parabéns você conseguiu descobrir a senha do cofre das Espandal!")
+            i4<-1
+            c<-1+c
+            senha<-"010192734404549525455"
+         Senao
+            limpatela
+            Escreval ("")
+            Escreval ("Infelizmente você não conseguiu, tente mais vez")
+            Escreval ("")
+         fimse
+      fimse
+   fimse
+fimenquanto
+limpatela
+Escreval ("")
+Escreval ("Os Corpos das senhoritas Espandal são encaminhados ao Instituto Médico Legal")
+Escreval ("para a autopisia. A arma do crime foi para análise em busca de digitais que")
+Escreval ("pudessem ser identificadas.")
+Escreval ("")
+Escreval ("")
+Escreval ("O detitive ",det1, " foi acompanhar de perto os trabalhos dos analistas.")
+Escreval ("Para este tipo de análise existem três tipos de testes. Superficial, analitico")
+Escreval ("e profundo.")
+Escreval ("Afim de obter sucesso total é necessário que todos os testes sejam realizados.")
+Escreval ("")
+Escreval ("")
+Escreval ("5 - Arma do crime.")
+Escreval ("")
+c2<-0
+Enquanto c2<=2 faca
+   Escreval ("Escolha qual análise deseja fazer")
+   Escreval ("1) Análise superficial")
+   Escreval ("2) Análise analitica")
+   Escreval ("3) Análise profunda")
+   leia (nivel)
+   Escreval ("")
+   Se nivel=1 entao
+      Se i=2 entao
+         limpatela
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+         Escreval("")
+      Senao
+         limpatela
+         Escreval ("5.1 - Análise superficial")
+         Escreval ("")
+         Escreval ("Descubra qual o resultado da equação abaixo abaixo")
+         Escreval ("")
+         Escreval ("#+#=4")
+         Escreval ("@*#=12")
+         Escreval ("$+#=5")
+         Escreval ("@^#=36")
+         Escreval ("((5+#)+($*@))/2")
+         Escreval ("")
+         Escreval ("Digite sua resposta")
+         Escreval ("1) 7,4")
+         Escreval ("2) 8")
+         Escreval ("3) 9")
+         Escreval ("4) 7,9")
+         leia (arma)
+         Se arma=2 entao
+            limpatela
+            Escreval ("")
+            Escreval ("Parabéns, você desvendou parte da digital do assassino.")
+            Escreval ("")
+            c2<-1+c2
+            i<-1
+         Senao
+            Escreval ("")
+            limpatela
+            Escreval ("Infelizmente você não conseguiu, tente mais vez")
+            Escreval ("")
+            Escreval ("")
+         fimse
+      fimse
+   fimse
+   Se nivel=2 entao
+      Escreval ("5.2 - Arma do crime.")
+      Se i2=2 entao
+         limpatela
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+         Escreval("")
+      Senao
+         limpatela
+         Escreval ("Vamos exercitar o seu português. Figuras de retorica:")
+         Escreval ("")
+         Escreval ("Segundo o site Significados - Figuras de retórica, também conhecidas por")
+         Escreval ("figuras de linguagem, são recursos linguísticos que ajudam a criar um significado")
+         Escreval ("figurativo e expressivo a mensagem transmitida.Etimologicamente, a palavra")
+         Escreval (" “retórica” é derivada do grego rhetorike que significa justamente “arte de falar bem”.")
+         Escreval ("Costumava ser utilizada na Grécia Antiga para se referir ao modo como as ideias eram.")
+         Escreval ("transmitidas, com base na convicção e clareza.")
+         Escreval ("")
+         Escreval ("Hipérbole - Consiste no exagero proposital de idéias ou sentimentos, com a ajuda")
+         Escreval ("de palavras ou características de conteúdo semântico superior à realidade")
+         Escreval ("Ex: A cidade amanheceu sob um dilúvio => A cidade amanheceu sob um forte chuva.")
+         Escreval ("")
+         Escreval ("Com base nesse conhecimento, identifique qual frase abaixo possui essa caracteristica.")
+         Escreval ("")
+         Escreval ("1) Foi ao hospital buscar a vida e encontrou a morte.")
+         Escreval ("2) Há crimes que podem trazer benefícios às vítimas.")
+         Escreval ("3) Ela é mais velha que uma múmia do Egito.")
+         Escreval ("4) Olha só que perna de pau, nem sabe jogar.")
+         leia (arma2)
+         Se arma2=3 entao
+            limpatela
+            Escreval ("")
+            Escreval ("Parabéns, você desvendou parte da digital do assassino.")
+            Escreval ("")
+            c2<-1+c2
+            i2<-1
+         Senao
+            Escreval ("")
+            limpatela
+            Escreval ("Infelizmente você não conseguiu, tente mais vez")
+            Escreval ("")
+            Escreval ("")
+         fimse
+      fimse
+   fimse
+   Se nivel=3 entao
+      Escreval ("5.3 - Arma do crime.")
+      Se i3=2 entao
+         limpatela
+         Escreval ("Você já fez esse teste e ganhou, tente o próximo")
+         Escreval ("")
+      Senao
+         limpatela
+         Escreval ("")
+         Escreval ("Considerando 3 como número fixo na expressão e usando ordem das expressões.")
+         Escreval ("Descubra o enigma dos pontos.")
+         Escreval ("")
+         Escreval (":. :::::::::::::. ::::. :::::::::::::. ::::::::::::::: :::::::::::::.")
+         Escreval ("")
+         Escreval ("Considerando essa sequência de pontos, qual equação abaixo mais adapta a imagem?")
+         Escreval ("1) 3^ 81/ 3* 27- 30 27=")
+         Escreval ("2) 3^ 27/ 9* 27+ 30- 27=")
+         Escreval ("3) 3* 27/ 3* 27+ 30- 21=")
+         Escreval ("4) 3* 81/ 9* 27- 30+ 21=")
+         leia (arma3)
+         Se arma3=2 entao
+            limpatela
+            Escreval ("")
+            Escreval ("Parabéns, você desvendou parte da digital do assassino.")
+            Escreval ("")
+            c2 <-1+c2
+            i3<-1
+         Senao
+            limpatela
+            Escreval ("")
+            Escreval ("Infelizmente você não conseguiu, tente mais vez")
+            Escreval ("")
+            Escreval
+         fimse
+      fimse
+   fimse
+fimenquanto
+limpatela
+Escreval (" ___________________________________________________________")
+Escreval ("|             Console de Análise e Comparação               |")
+Escreval ("|                                                           |")
+Escreval ("|                        Analyzing                          |")
+Escreval ("|___________________________________________________________|")
+Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+Escreva  (" Collecting data")
+Enquanto l<>20 faca
+   timer (100)
+   Escreva ("_")
+   l<-1+l
+fimenquanto
+Escreva ("100%")
+Escreval ("")
+Escreva  (" Loading")
+Enquanto l2<>5 faca
+   timer (100)
+   Escreva ("_")
+   l2<-1+l2
+fimenquanto
+Escreva("Error")
+Enquanto l3<>3 faca
+   timer (100)
+   Escreva ("_")
+   l3<-1+l3
+fimenquanto
+Escreva("Error")
+Enquanto l4<>5 faca
+   timer (100)
+   Escreva ("_")
+   l4<-1+l4
+fimenquanto
+Escreva ("Comparing")
+Enquanto l2<>10 faca
+   timer (100)
+   Escreva ("_")
+   l2<-1+l2
+fimenquanto
+Escreva ("100%")
+Timer (150)
+Escreval ("")
+Escreval ("")
+Escreval (" ___________________________________________________________")
+Escreval ("|......:::::::::::::::::::>Result<:::::::::::::::::::...... |")
+Escreval ("|                     .                                     |")
+Escreval ("|                   ::  : 1. point not identificad          |")
+Escreval ("|                 ::::::::: 2. point identificad            |")
+Escreval ("|                :::   ..::: 3. point not identificad       |")
+Escreval ("|                ::::::::::: 4. point identificad           |")
+Escreval ("|                 ::::::::: 5. point identificad            |")
+Escreval ("|                  ::::::: 6. point identificad             |")
+Escreval ("|                   ::::: 7. point identificad              |")
+Escreval ("|                                                           |")
+Escreval ("|______________________Final Result_________________________|")
+Escreval ("|                                                           |")
+Escreval ("|Os pontos identificados não pertencem a nenhuma pessoa com |")
+Escreval ("|CPF.                                                       |")
+Escreval ("|___________________________________________________________|")
+Escreval ("")
+Escreval ("Infelizmente a digital não facilitou o trabalho de identificação.")
+Escreval ("")
+Escreval ("No outro dia os Jornais publicam notícias sobre ocorrido.")
+Escreval ("No final da tarde o polícia prendeu um suspeito")
+Escreval ("Após ler alguns jornais o detetive", det1, "foi visitar o suspeito, pois era um velho conhecido.")
+Escreval ("Escolha um nome para o suspeito")
+Fimalgoritmo

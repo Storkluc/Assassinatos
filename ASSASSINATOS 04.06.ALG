@@ -1,0 +1,2261 @@
+Algoritmo "ASSASSINATOS"
+// LÓGICA DE PROGRAMAÇÃO E ALGORÍTMOS
+// EDSON PEDRO FERLIN
+// Descrição   : JOGO DE LÓGICA
+// Autor(a)    : EVERSON, LUCAS E RICARDO.
+// Data atual  : 27/05/2017
+Var
+   // Seção de Declarações das variáveis
+   resposta : vetor [0..13] de inteiro
+   repete: vetor [0..13] de inteiro
+   l : vetor [1..6] de inteiro
+   escolhas : vetor [0..6] de inteiro
+   evidencias : vetor [0..4] de caractere
+   det,susp,senhacofre3 : Caracter
+   chave,carta,cofreestrela,senhacofreestrela:inteiro
+   vidas,ponto,iniciar,selecao,hist,certo,erro,voltar,progressos,parar : inteiro
+   media : Real
+
+   //Procedimentos usados no decorrer do jogo.
+Procedimento Menu()
+inicio
+   //Menu inicial do jogo.
+   Repita
+      limpatela
+      Timer(5)
+      Escreval("          HMHMHMMHMMHMHMHMHMMHMMMMHMHMHMMHMMMMMMMHMHMHMMHMMMHMHMHMHMMMMHMHMHMHMHMMMMMMHMHMMMHMMHMHMMHMHMHMMHMHMHMHMMMHMHMHMHMHMHMHMHMMHMMMMHMHMHMHMMMHMMMMHMHMHM")
+      Escreval("          HMHMHM    MHMHMHMH      MMMHMHS     !MMHMHMHM   MMHMHMHMS     :MHMHMH      MMHM7  HHM   MMHMH  :MHMHMH   HMHM           HMHM`     MMMHMHMM      MMHMHM")
+      Escreval("          HMHMHM    MMHMHMH        MHMM         HMHMHM`   LMHMHMH        `MHMM        MMHL  UHM   MMHMH  !MHMHMM    HMH           MMM         HMHMH        MHMHM")
+      Escreval("          HMHMHM    HMHMHM    ':    HMH   `7    MHMHMH     MHMHMM    (    HMM    :!   'HM7  HMM    HMHM  :HMHMH     MMH           MH     `    HMHM    :'   UHMHM")
+      Escreval("          HMHMHL     MHMHM   MMMH   MHM  SMHML  :HMHMM     MMHMHM  HMHM7  :MM   MMMM   MHL  UHM    HMHM  !HMHMH     UMHMHMH'  HMMMHM   HMHMM   MMH  :MMHM   MMHM")
+      Escreval("          HMHMH      MMHMM   MHMH'  MMM  HMHMM   HMHMM  U  7HMHMM  HHMMM   HM   MHMH   MML  HMM     HMH  :MHMHM  (   HMHMHM'  HHMMH   SMMMHM   HMM  :HMMH   MHMH")
+      Escreval("          MHMHM  :(  HHMHM    HMMMMMMHM   !MMHMMMHMHM   M   MMHMM   !MHMHMMHM    MMHMMMHM7  HMM     HMH  !MHMH`  H   MMHMHM'  HHMHM   HMHMHMM   MM    MHMHMMHMHM")
+      Escreval("          HMHM`  HM   HMHMM      :HMHMH       MMMMHMH  'M   MHMHM       MHMHMM      UHMMHL  UHM  U   MH  !MHMM   M!  HHMHMH'  HMHMM   MHMHMHM   MM:      MHMMHMH")
+      Escreval("          MHMM   MM   MMHMM:       MMHMM       HHMHML  SMS  UHMHMM       UHMHM        MMM7  HMM  S   HH  :MHMM  7MM   MHMHM'  HHMHM   MMHMHMH   MMM        HMHMH")
+      Escreval("          MHMM  (MH7  UMHMHMM'      HMHMHU      HMHM   MHM   HMHMMMS      HHMHMH       MML  HMM  SM   M  !HMH   HMM   MHMHM'  HHMMM   HMHMHMH   MMHMU      !MMHM")
+      Escreval("          HMH`  UMMM   MMHMMMHMH    MMHMHMMH!    HMM   MMM   HMHMHMMMH!    HMHMMHMU    MH7  UHM  UM   H  :HMH   MMM`  UMHMH'  HMHMH   MMHMHMH   MMHMMMMS    MMHM")
+      Escreval("          HMM          MHMS!HMMHMH  UMM( MHMHM   MMM         !HMM( HMHMM   MHS`MMHMML  SHL  UHM  UMM     :HMM          HMHM'  HHMHM   MHMHMHM  `MM7`MHMHM   HMHM")
+      Escreval("          HMH          HMM   MHMHM  SM   MHMHM   MM           HM   MHMMM   MM  7HMHMM  SML  HMM  SMHU    !HM`          MHMH'  HMHMH   !MHMHM   UH'  HMMHM:  HMHM")
+      Escreval("          HML  SUUUUU   MH   MMMM`  UM:   MMMM   MH   UUUUU   MM!  UMMHM   MH   MMMM   SH7  UHM  UMHM    !MH   UUUUU(  HMHM'  HHMHMM   MHMMU   HMM   MMMH   MMHM")
+      Escreval("          MH   HMHMHM   MM          MHM         7ML  SHMHMHM  LMM         LMH          MML  HMM  SHMH7   :MM   HMHMHM   HMH'  HMHMHM          UMMH          MMHM")
+      Escreval("          HM   MMHMHM   HMM        LMHM         MM   HHMHMHM   MH`        MHMM        SMH7  UHM  SMHMM   !H`  UMHMHMH   MMH'  HMHMHMM        'MMHMM        HMHMH")
+      Escreval("          M`  SHMHMHMM   HMM(     UMHMHMH     :MHM   MHMHMHM   HMHH     !MMHMHM`     UMMHL  UMM  SMHMMH  :M   HMHMHMH   UMM'  HHMHMHMMH     UMMMHMHM      UMMHMH")
+      Escreval("          MHMMMMHMHMHMMMMHMHMMMMMMHMMHMHMHMMMMMHMHMMMMHMHMHMMMMHMHMMMMMMHMHMHMMMHMMMMMHMHMHMMMHMMHMHMHMHMMMMMHMHMHMHMMHMMMHMMMHMHMHMHMMMMMMMMHMHMHMMMMMMMHMHMHMH")
+      Escreval ("")
+      Escreval ("")
+      Escreval ("")
+      Escreval ("                                                                          PRESSIONE ENTER")
+      Leia(hist)
+      Se det="" entao
+         Escreval ("Insira seu nome")
+         Leia (det)
+      Fimse
+      Escreval ("")
+      Escreval ("                                                    Selecione uma das opções abaixo digitando o número e aprertando ENTER.")
+      Escreval ("")
+      Escreval ("                                                                              1 - INICIAR")
+      Escreval ("                                                                              2 - STATUS")
+      Escreval ("                                                                              3 - SAIR")
+      vidas<-3
+      leia (iniciar)
+      Se iniciar=1 entao
+         ponto<-0
+         progressos<-0
+         media<-0
+         Timer (30)
+      Senao
+         Se iniciar=2 entao
+            status()
+         Senao
+            Se iniciar=3 entao
+               parar<-1
+               iniciar<-0
+               voltar<-1
+            Senao
+               opcaoinvalida()
+            fimse
+         Fimse
+      Fimse
+   Ate (iniciar=1) ou (iniciar=0)
+fimprocedimento
+
+Procedimento gameover()
+Inicio
+   //Caso o jogador zere as vidas ou deseje sair do jogo a tela abaixo é exibida.
+   timer(10)
+   limpatela
+   Escreval ("         MMMMMMHMMHMMMMMMHMHMMHMHMMMMMMMMMMMMMMMMMMMMMMMHMMMMMHMMMHMMHMMMMMHMHMMHMHMMMMMMMMMMMMHMMMHMMMMMMMMHMMMMMMMMMMMMMHMMMMMMMHMHMHMMMMMMMMMMMMMMMMMMHMMMMM")
+   Escreval ("         MMMMMMHMHMMMMH((7(7777(7(7(7(7(7(7(7(UMMMMMMMMMMMM777(77((7(((77HMMMMMMHMMMHL(7(7(77(:MMMHMMMMHMMMMH(7(77(7(7MMH!((7(7777(7(7(7(7(7(7(7(7(7(7(7(7MMMMM")
+   Escreval ("         MMMMMMMMMHMMMM                       7MMMMMMMMMMMM              HMMHMMMMMMHM!         MMHMMMMMMMHMMU         HMM'                                HMMMM")
+   Escreval ("         MHMHMHMMMMMHMM                       7MMMMMMMMMMHM              HMMHMHMMMMHM!         MHMHMMHMMHMMMU         MHM!                               `MMMMM")
+   Escreval ("         MMHMMMHMM          'SSSUSSSSSSSSSSSSSUHMMMMMM         `SUSS`         HMHMMMM:             !MMMM              MHM'         MMHMHMHMMMMMMMMMMMMMHMMMMMMM")
+   Escreval ("         HMMMMMHMM         `:HMMHMMMMMMMMMMMMMMMMMMMHM         !MMHM         `HMMHMMM:             !HMMM              MMH'         MMHMMHMMMMHMMMHMHMHMHMMHMMMH")
+   Escreval ("         MHMMMMMMM          (HMHMMHMHMHMHMHMHMMMMMMHMM         !MMMH          MMMHMHH:             !MMMM              HMM!         MMHMHMHMHMHMHMHMHMHMMHMMHMMH")
+   Escreval ("         MMMMH`    `   LSSUSHMMMHMMHMMHMMMMMMMMMMH`        SLSLUHMMHLSUUL     `   HMM:              `                 MMH!         MMMHMHMHMMHMMMMMMHMMMMMMMMMM")
+   Escreval ("         MHMMM         HMHMMMHMHMMMHMMHMMMMMMMHMMM  `      HMMMHMMHMMMMHM         MMM:                                MHM'         MMHMHMHMMMHMMMMHMMMMMMMMMMMM")
+   Escreval ("         MMHMM         HMMMHMMMMMMHMMHMMMMMMMMUMMM         MHMMMMMMHMMMMM         MHM!                                MHM!         (7(7(7(7(((7((HMMHMMMMMMMMMM")
+   Escreval ("         HMHMH         HMMHMMMHM:             7MMM         MMMMMHMMMMMHMM         MHM!                                MHM'        `              LHMMHMMHMHMHMH")
+   Escreval ("         MHMHM         UMHMMMMHM!             (HMM         MMMMMMMMMHMMMH         MMH!                                MMH'                       SMMHMHMMMMMMMM")
+   Escreval ("         MHMHM         HMMHMMHMM(             7MMH         MMHMMMHMMHMMHM         MMH!                                MMH!                       LMMMHMMMMMMMMM")
+   Escreval ("         HMHMH         HMMMMMMMMMHMMH`        (HMM         `                      MMH!         :MMM'    UMMHU         MMH!         MMMHMHMHMHMMMMHMMHMHMMMMMMMM")
+   Escreval ("         MMMMH         HMMHMHMMMHMMMM         7HMM                                MHM!         :HMM!    MMMHM         MMH!         MHMMMMMMMMMMMMMMMMMMMHMMHMMH")
+   Escreval ("         MMMMM         UHHHHMMMMMMMHM         (MMH                                MMH!         !MMM'    MHMMM         MHM'         MMHMHMMMMHMMMMMHMHMHMHMMHMMM")
+   Escreval ("         MMMMHMMMHU         7MMMHMHMM         7HMM        `MMMMMMMMHMMMMM         MHM!         !MHMMMMMMHMMMM         MMH!         MMMMMMHMMHMMMMMMMMMMMHMMMMMM")
+   Escreval ("         MHMMMMHMMU         LMHMMHMMH         (MMH         MMMHMHMMMMHMMM         MMH!         !MMHMMMMMMMHMM         MMH'         MMMMMMMHMMMMMHMMHMHMMMMMMMMH")
+   Escreval ("         MHMHMHMMMS         :HHHHHMHU`        7HMM         MHMMMMHMMMHMMM         MHM!         !HMMMMMHMMMMMM         HMM!         SHHHHHHHHHHHHHHHHHHHHMHMMMMM")
+   Escreval ("         HMHMHMHMMMHMMM                       7MMH         MMMMMMMMMMMMHM         MMM!         !MMHMMMHMMMHMM         MHM'                                MMMMM")
+   Escreval ("         MMMMMMMHMMMMMH                       7MMM         MMHMMMMMMMMHMM         MHM!         :MMMHMMMMHMMHM         MMM'                                MMHMM")
+   Escreval ("         MHMHMHMHMMMMHMSSSUSSUSSUSUSUSUSUSUSUSHMMHSSUSUSUSSMMHMMHMMHMMMMMUSUSUSUSUHMMUSUSUSUSUUUMMMMMHMMMHMMMUUUUSUSUUHMMUSSUSUSUSUSUSUSUSUSUSUSUSUSUSUUUSMMMMM")
+   Escreval ("         MMMMMMMMMMMMMHMHMMMMMMMHMHMHMMHMHMHMMMHMMHMMMHMHMMMMHMMMMMMMMMMMMMMHMHMHMMMHMMHMMHMHMMMMMMMHMMMMMMMMMMMMHMMMMMMHMMMHMHMMMHMMMHMHMHMMMMMMMMMMMMMMMHMMMM")
+   Escreval ("         MMMMMMMMMMMMMMHMMMMMMMHMMHMHMMMMMMMMMMMMMMMHMHMMHMMHMMHMMHMMMMMHMMMMMMMMHMMHMMHMMHMMMMMMMMMHMHMMHMMMMMMMMMMHMHMMHMMMMMHMHMHMMMMMMMMMMMMMMHMHMHMMMMMHMM")
+   Escreval ("         MMMMMMMMMMMMMMMMMHMMMMMMMMMMMMMMMMMMHMHMMHMHMMHMMMMMHMMMMMMHMMMMMHMMMMHMMHMHMMMMMHMMMMHMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMHMHMHMMMMMMMMMMMMMMHMMMHMM")
+   Escreval ("         MHMMMHMMMMHM7((777(7((777(7(77(7(7:MMMHMMMM(7(7((7((SMMHMMMHMMMHMM7(7(77(77MMM7((7(7777(7(7(7(7(7(7(7(7(7(7(7(7 HM7(7(7(7(7(((777(7(7(7((777(7HMMHMMMH")
+   Escreval ("         MMMHMMHMMMMM  `                    MMMMMHMM         :HMMMHMMMMMMMM         MMH7                                 MM                            MHMMHMMM")
+   Escreval ("         MHMMMHMMMHMM                       MMMMHMMM         (MMMMHMMMHMMMH         MMM7                               ` MM                            MMHMHMMM")
+   Escreval ("         MMHMMMMHMMHM                       77((HMMM         (HMMMMMMHMMMHM         MMH7         !MMHMHMHMMMMMMMMMMMMMHMMMM                            (7777HMM")
+   Escreval ("         MMMMMMH          MHMMMMMMHMMMM:        LMHM         (MHMMHMMMMMMMH         MMM7         !MMMHMHMHMHMHMHMHMMHMMMHMM         'MHMMHMHMHMHMM!         HMM")
+   Escreval ("         MMMMMMM          HMMHMMHMMHMHM:        LMMM         (MHMHMHMMMMMMM         HMM7         :HMHMHMHMHMHMHMHMHMHMMHMMM         'MMMHMMHMMHMMH!         HMM")
+   Escreval ("         HMMMHMM          HMMHMHMHMHMMM:        LHMM         (MHMHMHMMMMMMM         MMH7         :MHMMHMMHMHMHMHMHMMHMMMMMH         'MMHMMMMHMMMHM:         MMH")
+   Escreval ("         MMMMMMM          HMMMMMMHMHMMH:        LMMM         (HMMMMHMMMMMMH         MMH7         !MHMMHMMMMMMHMMMMMHMHMMMMM         'MHMHMHMMHMMHM:         MHM")
+   Escreval ("         MMMMMMM          HMMMMMMHMMMMH:        LMMM         (MMHMMHMMMMMMM         HMM7         :MHMMMMMMHMMHMMMMMMHMMMMMM         'HMHMMMMMHMMHM!         HHM")
+   Escreval ("         MMMMMMH          MMHMMMMMMMMHM:        LHMM              MMMMS             HMM7                       `MMHMHMMMMMM         'MHMMHMMHM              MMM")
+   Escreval ("         MMHMHMM          HMMHMMMMMMMMH:        LMMM              MHMMU             HMM7                       'HMMHMHMMMMM         'MMHMMMMHM              HHM")
+   Escreval ("         MMMMMMM          HMMHMMMMMMMMH:        LMMM              MHMMS             HMM(`                      !HMMMMMMMMMM         'MMMHMMHMM              MMM")
+   Escreval ("         MMMMMMM          HMMHMMMMMMMMH:        LMMHHMMMU              `        MMMHMMM7         :HMHMMHMHMMHMMMMMHMMMMMMMM          `       '    !HMMMMMMMMMHM")
+   Escreval ("         MHMHMMH          MMHMMHMHMHMHM:        LHMMMMHMM                       MMMHMMML         :MMMMMHMMHMMMMMHMMMMMMMMMM                       !HMHMMMMMMHMM")
+   Escreval ("         HMMHMMM          HMMMHMMMHMMMM:        LHMMMMMMM                      `MMMMHMM7         !MMHMMHMMMMMMMMMMMMHMMMMMM                       `HHHMMMMMMMHM")
+   Escreval ("         MHMMMMM          MHMMMHMHMMHMM:        SMHMMMMMMMMMM`             !MHMMMMMMHMM7         !MMHMMHMMMMMMMMMHMHMMHMMMM         'MHMM`             MMHMHMHM")
+   Escreval ("         HMMHMMM          MMMMMMHMHMHMM!        LMMMMHMMMMMMM`           ` !MMHMMMMMMMM7         !MMMHMMMHMHMHMHMMMMMHMMHMM         'MHMH              MMMMMMMM")
+   Escreval ("         MHMMMMM          HHHMHHHHHHHHU!        UMMMMMMMMMMMM'             :MHMHMHMMMHM7         :MHMHHHHHHHHHHHHHHHHHHHHMM         !MHMM`             UHMHHHMM")
+   Escreval ("         MMMMMMHMMMMM    `                  LMMHMMMMMMHMMMHMMMHMM7    `HMMMMMMHMHMMMMMH7                                 MM         'MMHMMHMHH`             MMM")
+   Escreval ("         MMMMMMHMMMMM                       LHMMMMMMMMMMHMHMHMMMM7     MMHMMMHMMHMMMMMML                                 MM         !MMMHMMMMM              HHM")
+   Escreval ("         MHMHMMMMMMMHSSSUSUSUSUSUSUSUSUSSSUUMMMMMMMMMMHMMHMHMHMMHHSSUSSMMHMMHMMMMMHMMMMMSSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUSUMMSUSUSSUSUHMMMMMMMMMUUSSUSUSUUSUUSHMM")
+   voltar<-1
+   parar<-1
+Fimprocedimento
+
+//O procedimento a baixo, faz com que o jogador perca vidas ao errar a resposta de alguma pergunta.
+Procedimento perdevida()
+Inicio
+   vidas<-vidas-1
+Fimprocedimento
+
+//O procedimento abaixo, faz com o jogador ganhe vidas.
+procedimento vida()
+Inicio
+   vidas<-vidas+1
+Fimprocedimento
+
+//O procedimento abaixo, faz com que o jogador ganhe pontos.
+Procedimento pontos()
+Inicio
+   ponto<-ponto+10
+Fimprocedimento
+
+//O procedimento abaixo, mostra o progresso do jogador.
+procedimento progresso()
+Inicio
+   progressos<-progressos+1
+Fimprocedimento
+
+//O procedimento abaixo, mostra que o jogador acertou.
+procedimento acertou()
+Inicio
+   limpatela
+   Escreval ("    ====================================================")
+   Escreval ("                      Você Acertou!")
+   Escreval ("    ====================================================")
+   certo<-certo+1
+   Timer (2000)
+   Timer(0)
+   limpatela
+Fimprocedimento
+
+//O procedimento abaixo, mostra que o jogador errou.
+procedimento errou()
+Inicio
+   limpatela
+   Escreval ("    ====================================================")
+   Escreval ("                       VOCÊ ERROU!")
+   Escreval ("    ====================================================")
+   erro<-erro+1
+   Timer (2000)
+   Timer(0)
+   limpatela
+Fimprocedimento
+
+//O procedimento abaixo, mostra que o jogador já investigou a cena.
+procedimento investigacao()
+Inicio
+   limpatela
+   Escreval ("    ====================================================")
+   Escreval ("                   VOCÊ JÁ INVESTIGOU AQUI!")
+   Escreval ("    ====================================================")
+   Timer (2000)
+   Timer(0)
+   limpatela
+Fimprocedimento
+
+
+//Caso o usuário digite um valor que o programa não aceite a mensagem abaixo é apresentada.
+procedimento opcaoinvalida()
+Inicio
+   limpatela
+   Escreval ("    ====================================================")
+   Escreval ("                  ERRO - OPÇÃO INVÁLIDA!")
+   Escreval ("    ====================================================")
+   Timer (2000)
+   Timer(0)
+   limpatela
+Fimprocedimento
+
+//Resumo das atividades desenvolvidas no jogo.
+procedimento status()
+inicio
+   limpatela
+   Repita
+      Timer(30)
+      Escreval (" ====================================================")
+      Escreval ("               Detetive: ", det)
+      Escreval (" ====================================================")
+      Escreval ("  VIDAS: ",vidas)
+      Escreval ("  PONTOS: ",ponto)
+      Escreval ("  PROGRESSO: ",progressos,"%")
+      Escreval ("  ACERTOS: ",certo)
+      Escreval ("  ERROS: ",erro)
+      Escreval ("")
+      Escreval ("")
+      Escreval ("                                          1 - Voltar.")
+      leia (voltar)
+   ate voltar=1
+   menu()
+Fimprocedimento
+
+//Resumo da fase.
+procedimento resumofase()
+Inicio
+   Repita
+      limpatela
+      Timer(20)
+      Escreval (" ====================================================")
+      Escreval ("               RESUMO DO CAPÍTULO 1")
+      Escreval (" ====================================================")
+      Escreval ("  VIDAS:",vidas)
+      Escreval ("  PONTOS:",ponto)
+      Escreval ("  ACERTOS:",certo)
+      Escreval ("  ERROS:",erro)
+      Escreval ("")
+      Escreval (" ====================================================")
+      Escreval ("       EVIDÊNCIAS ENCONTRADOS NA CENA DO CRIME:")
+      Escreval (" ====================================================")
+      Escreval (" ",evidencias[0])
+      Escreval (" ",evidencias[1])
+      Escreval (" ",evidencias[2])
+      Escreval (" ",evidencias[3])
+      Escreval ("")
+      Escreval ("                                      1 - CONTINUAR.")
+      Timer(0)
+      leia (voltar)
+   ate voltar=1
+Fimprocedimento
+
+//O procedimento abaixo exibe constantemente dados do jogo para o jogador.
+procedimento topo()
+Inicio
+   Escreval ("================================================================================")
+   Escreval (" Detetive: ",det," | Vidas: ",vidas," | Pontos: ",ponto," | Progresso: ",progressos,"%")
+   Escreval ("================================================================================")
+Fimprocedimento
+
+//tela de continuar exibi o comando para o jogador pular a tela.
+procedimento continuar()
+inicio
+   Escreval ("")
+   Escreval ("ENTER - Continuar.")
+   Escreval ("")
+   leia (hist)
+fimprocedimento
+
+//O procedimento abaixo executa uma animação para as análises executadas no jogo.
+Procedimento analise()
+Inicio
+   Timer(30)
+   limpatela
+   Escreval ("       ___________________________________________________________")
+   Escreval ("      |             Console de Análise e Comparação               |")
+   Escreval ("      |                                                           |")
+   Escreval ("      |                        Analyzing                          |")
+   Escreval ("      |___________________________________________________________|")
+   Escreval ("      :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+   Escreval ("      :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+   animacaobarra()
+   Escreval ("")
+   Escreval ("")
+   Escreval ("      ___________________________________________________________")
+   Escreval ("     |......:::::::::::::::::::>Result<:::::::::::::::::::...... |")
+   Escreval ("     |                     .                                     |")
+   Escreval ("     |                   ::xx: 1. Unidentified point             |")
+   Escreval ("     |                 ::::::::: 2. Identified point             |")
+   Escreval ("     |                :::xxx..::: 3. Unidentified point          |")
+   Escreval ("     |                ::::::::::: 4. Identified point            |")
+   Escreval ("     |                 :::xx:::: 5.  Unidentified point          |")
+   Escreval ("     |                  ::::::: 6. Identified point              |")
+   Escreval ("     |                   ::::: 7. Identified point               |")
+   Escreval ("     |                                                           |")
+   Escreval ("     |______________________Final Result_________________________|")
+   Escreval ("     |                                                           |")
+   Escreval ("     |Os pontos identificados não pertencem a nenhuma pessoa com |")
+   Escreval ("     |CPF. XX XXX XX.-> Pontos não identificados.                |                                       |")
+   Escreval ("     |___________________________________________________________|")
+   evidencias[0]<-"Digital sem identificação.
+   evidencias[1]<-" "
+   evidencias[2]<-" "
+   evidencias[3]<-" "
+   evidencias[4]<-" "
+   continuar()
+Fimprocedimento
+
+Procedimento analisecompleta()
+Inicio
+   Timer(30)
+   limpatela
+   Escreval ("    ___________________________________________________________")
+   Escreval ("   |             Console de Análise e Comparação               |")
+   Escreval ("   |                                                           |")
+   Escreval ("   |                        Analyzing                          |")
+   Escreval ("   |___________________________________________________________|")
+   Escreval ("   :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+   Escreval ("   :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+   animacaobarra()
+   Escreval ("")
+   Escreval ("")
+   Escreval ("    ___________________________________________________________")
+   Escreval ("   |......:::::::::::::::::::>Result<:::::::::::::::::::...... |")
+   Escreval ("   |                     .                                     |")
+   Escreval ("   |                   ::::: 1. Identified point               |")
+   Escreval ("   |                 ::::::::: 2. Identified point             |")
+   Escreval ("   |                ::::::::::: 3. Identified point            |")
+   Escreval ("   |                ::::::::::: 4. Identified point            |")
+   Escreval ("   |                 ::::::::: 5.  Identified point            |")
+   Escreval ("   |                  ::::::: 6. Identified point              |")
+   Escreval ("   |                   ::::: 7. Identified point               |")
+   Escreval ("   |                                                           |")
+   Escreval ("   |______________________Final Result_________________________|")
+   Escreval ("   |                                                           |")
+   Escreval ("   |Os pontos foram identificados e pertencem:                 |")
+   Escreval ("   |Sequência não compatível com nenhum CPF cadastrado. XXXXXXX|")
+   Escreval ("   |___________________________________________________________|")
+   continuar()
+Fimprocedimento
+
+//O procedimento abaixo executa animações em forma de barra.
+Procedimento animacaobarra()
+Inicio
+   Escreva  ("      Collecting data")
+   Enquanto l[1]<>20 faca
+      timer (100)
+      Escreva ("_")
+      l[1]<-1+l[1]
+   fimenquanto
+   Escreva ("100%")
+   Escreval ("")
+   Escreva  ("      Loading")
+   Enquanto l[2]<>5 faca
+      timer (100)
+      Escreva ("_")
+      l[2]<-1+l[2]
+   fimenquanto
+   Escreva("Error")
+   Enquanto l[3]<>3 faca
+      timer (100)
+      Escreva ("_")
+      l[3]<-1+l[3]
+   fimenquanto
+   Escreva("Error")
+   Enquanto l[4]<>5 faca
+      timer (100)
+      Escreva ("_")
+      l[4]<-1+l[4]
+   fimenquanto
+   Escreva ("Comparing")
+   Enquanto l[5]<>10 faca
+      timer (100)
+      Escreva ("_")
+      l[5]<-1+l[5]
+   fimenquanto
+   Escreva ("100%")
+Fimprocedimento
+
+//O procedimento abaixo leva o jogador para outro final do jogo. Pois não fez nenhum desafio
+procedimento historiaerrada()
+Inicio
+   limpatela
+   Escreval ("Após sair da sena do crime, detetive ", det," vai para sua casa decansar,")
+   Escreval ("           pois o dia seguinte será carregado de trabalho.")
+   Escreval ("    No outro dia os Jornais publicam notícias sobre o ocorrido.")
+   Escreval ("")
+   continuar()
+   limpatela
+   Escreval ("    __________________________________________________________ ")
+   Escreval ("   |                                                12/05/2017|__")
+   Escreval ("   |                    CURITIBA EM ALERTA                    |  |")
+   Escreval ("   |                                                          |  |")
+   Escreval ("   |                                                          |  |")
+   Escreval ("   |VIOLÊNCIA                                                 |  |")
+   Escreval ("   |     VIOLENTO ASSASINATO ASSUSTA MORADORES DO CENTRO      |  |")
+   Escreval ("   | Após o brutal assassinato das senhoritas Espandal ocorri-|  |")
+   Escreval ("   |no prédio  em que residiam,  a  Polícial  Civil  e Militar|  |")
+   Escreval ("   |unem forças afim de descobrir o paradeiro do assassino. O |  |")
+   Escreval ("   |delegado Ferlin segue a frente das investigações e garante|  |")
+   Escreval ("   |prender o assassino até o final do dia de hoje.           |  |")
+   Escreval ("   |Notícia na integra p.2.                                   |  |")
+   Escreval ("   |                                                          |  |")
+   Escreval ("   |ESPORTE                                                   |  |")
+   Escreval ("   |  Atletiba termina sem gols e Coritiba se sagra campeão   |  |")
+   Escreval ("   |                      paranaense                          |  |")
+   Escreval ("   | Deu a lógica e o Coritiba é o campeão paranaense mais uma|  |")
+   Escreval ("   |vez. Neste  domingo, o  Coxa poderia  até mesmo perder por|  |")
+   Escreval ("   |dois gols de diferença no Couto Pereira, mas não deu chan-|  |")
+   Escreval ("   |ces ao Atlético-PR, jogou melhor durante  todo o jogo con-|  |")
+   Escreval ("   |quistando o título com um empate sem gols.                |  |")
+   Escreval ("   |Notícia na integra p.4.                                   |  |")
+   Escreval ("   |                                                          |  |")
+   Escreval ("   |SAÚDE                                                     |  |")
+   Escreval ("   |  25 POSTOS DE SAÚDE DE CURITIBA ABREM NO SÁBADO PARA A   |  |")
+   Escreval ("   |            VACINAÇÃO CONTRA A GRIPE                      |  |")
+   Escreval ("   | O Dia D da vacinação contra a gripe acontece neste sábado|  |")
+   Escreval ("   |(13) em Curitiba. De acordo com a Secretaria Municipal  de|  |")
+   Escreval ("   |Saúde, 25 das 110 unidades básicas estarão abertas  das 8h|  |")
+   Escreval ("   |às 17h. Diferente de anos anteriores, não haverá  imuniza-|  |")
+   Escreval ("   |ção em pontos de grande  circulação, como  shoppings e su-|  |")
+   Escreval ("   |permercados.                                              |  |")
+   Escreval ("   |Notícia na integra p.3.                                   |  |")
+   Escreval ("   |__________________________________________________________|  |")
+   Escreval ("     |___________________________________________________________|")
+   continuar()
+   limpatela
+   topo()
+   Escreval ("")
+   Escreval ("                         Naquele mesmo dia...")
+   Escreval ("")
+   Escreval ("             No final da tarde o polícia prendeu um suspeito.")
+   Escreval ("")
+   Escreval (" Infelizmente detetive ", det , " seus trabalhos não são mais necessários,")
+   Escreval ("  pois se não conseguiu descobrir ao menos uma evidência na cena do crime")
+   Escreval ("             como quer ser promovido? Sua carreira acaba aqui.")
+   Escreval ("")
+   vidas<-0
+Fimprocedimento
+
+//Se o jogador tiver uma pontuação baixo será encaminhado para um final errado:
+procedimento historiaerrada2()
+inicio
+   Escreval (" - Por que Jaqueline me devia e seu nome estava anotado em um caderno que possuo.")
+   Escreval ("Essa semana fui ao predio e acabamos discutindo.")
+   Escreval ("                       - Tá, porque você está preso?")
+   Escreval (" - Porque um vizinho me viu entrar no aparmento das irmãs e escutou nossa discusão")
+   Escreval ("e por ser a última pessoa que às viu com vida, logo a polícia interpreta que foi eu.")
+   Escreval (" último a vê-la com vida o delegado me achou um belo suspeito para o duplo homicídio.")
+   Escreval ("               - A Polícia não considerou o seu depoimento?")
+   Escreval (" - Acredito que não. Juro que não cometi os assassinatos, você me conhece.")
+   Escreval ("      - Você está em apuros, mas irei descobrir quem é o assassino.")
+   Escreval ("         - Obrigado! Mas acho que não sairei da cadeia tão cedo.")
+   Escreval ("")
+Fimprocedimento
+
+
+
+//Procedimento abaixo mostra na tela a ilustração do IML.
+procedimento iml()
+inicio
+   Escreval ("Após falar com o chefe de polícia ", det, " foi ao IML acompanhar a autopsia das vítimas")
+   Timer (30)
+   Escreval ("                  *                                        *          *                     ")
+   Escreval ("        *                 *           *               *                                      ")
+   Escreval ("   __________________________________________________________________________________ *      ")
+   Escreval ("  |                                                                                  |      ")
+   Escreval ("  |                          INSTITUTO MÉDICO LEGAL - IML                            |      ")
+   Escreval ("  |                                                                                  |      ")
+   Escreval ("  |                                                                                  |  *   ")
+   Escreval ("  |                                                                                  |      ")
+   Escreval ("  |                                                                                  |      ")
+   Escreval ("  |             _____________       ________________       _____________             |      ")
+   Escreval ("  |            |             |     | /     || /  /  |     |             |            |      ")
+   Escreval ("  |            | /  /   /  / |     |  /    ||  /    |     | /  /   /  / |            |      ")
+   Escreval ("  |            |_____________|     |    / o||o  /   |     |_____________|            |`o`o´o´")
+   Escreval ("__|________________________________|_______||_______|________________________________|__\|/__")
+   Escreval ("             \/         ____      /                  \         ______    \/                  ")
+   Escreval ("                ____ \/          /                    \     __       __       \/             ")
+fimprocedimento
+
+//Procedimento abaixo, completa um pedaço da história que se repete nos três finais.
+procedimento delegado()
+inicio
+   timer(30)
+   Escreval ("            Mais tarde ",det, " foi visitar o chefe de polícia.")
+   Escreval ("                      - O que você quer agora ",det)
+   Escreval ("         - Quero examinar os corpos e falar com algumas testemunhas.")
+   Escreval ("  - Não há necessidade, pois o crime já foi resolvido e uma pessoa foi presa. ")
+   Escreval (" - Não quero criar mais confusão. Com todo respeito, você prendeu o homem errado")
+   Escreval ("e o verdadeiro assassino ainda está solto. E se ele matar novamente. Por que você")
+   Escreval ("                  não me deixa investigar o crime e se...")
+   Escreval ("- Está bem! Se estiver certo, é preciso provar, como sempre há vidas em jogo. ")
+   Escreval (          det, " farei uma lista de testemunhas e ligarei para o legista")
+Fimprocedimento
+
+//Procedimento de autopsia que se repete nos três finais.
+procedimento autopsia()
+inicio
+   Escreval ("Primeiro o legista mostrou o corpo de Vanessa Espandal, que após ser morta com um golpe na")
+   Escreval ("garganta foi jogada pela janela.")
+   Escreval ("- Como é possível ver, o golpe que atingiu o pescoço da moça foi tão forte que tirou-lhe a")
+   Escreval ("cabeça.")
+   Escreval ("- Com certeza é um homem muito forte.")
+   Escreval ("- Olhe, esse é o corpo de Jaqueline Espandal.")
+   Escreval ("- Como pode ver, possui arranhões por todo corpo. Grande parte por ter sido colocada na chaminé")
+   Escreval ("e depois retirada de lá. Mas esse não foi o motivo da morte, seu pescoço possui marcas muito ")
+   Escreval ("evidentes de estrangulamento.")
+fimprocedimento
+
+//Procedimento onde o detetive entrevista as testemunhas que estavam na noite do assassinato.
+procedimento entrevista()
+inicio
+   Escreval ("Ao amanhecer, ",det," foi entrevistar algumas testemunhas. Primeiro foi falar com Daniel.")
+   Escreval ("- Pobres mulheres, disse Daniel.")
+   Escreval ("- Me diga o que se lembra, por favor, cada detalhe é muito importante.")
+   Escreval ("- Quando chegamos a porta do apartamento estava trancada, ouvi as duas vozes discutindo lá dentro.")
+fimprocedimento
+
+//Procedimento onde o detetive entrevista as testemunhas que estavam na noite do assassinato.
+Procedimento entrevista2()
+inicio
+   Escreval ("A segunda testemunha a ser interrogada foi o senhor Filipak, dono de um restaurante naquele bairro.")
+   Escreval (" Ele contou a mesma história que Daniel, a não ser pela parte de ter visto ",susp,".")
+Fimprocedimento
+
+//Procedimento onde o detetive entrevista as testemunhas que estavam na noite do assassinato.
+procedimento entrevista3()
+inicio
+   Escreval ("O detetive ", det, " conseguiu achar outra testemunha no restaurante que tomava um drink depois do")
+   Escreval ("trabalho. Era Renildo um vendedor da Rua XV.")
+   Escreval ("- ", susp, " é um monstro! Espero que nunca saia da prisão.")
+   Escreval ("Renildo fica nervoso e com o punho fechado soca a mesa em que se encontram.")
+   Escreval ("- Tem certeza de que ele cometeu esses assassinatos?")
+   Escreval ("- Talvez outro homem tenha segurado a navalha, mas os dois estavam lá.")
+Fimprocedimento
+
+//Procedimento que seleciona as perguntas no jogo de forma randomica.
+procedimento perguntas()
+inicio
+   limpatela
+   Se vidas=0 entao
+      gameover()
+   fimse
+   timer(30)
+   selecao [0]<-randi(14)
+   Escolha selecao [0]
+   caso 0
+      Se repete[0]<>1 entao
+         Escreval ("Descubra a sequência lógica da dízima periódica através do texto abaixo:")
+         Escreval ("")
+         Escreval ("Quando avanço levo um, se deixo de seguir quero dividir, mas não sem deixar")
+         Escreval ("de ganhar, pois quem volta perde e multiplica. Não quero ser indeciso,")
+         Escreval ("quero ver se você sabe quem sou, pois nunca terei fim.")
+         Escreval ("")
+         Escreval ("Qual dízima periódica abaixo refere-se ao texto acima.")
+         Escreval ("1) 1,1,1,2,1,2...")
+         Escreval ("2) 1,2,1,3,1,0...")
+         Escreval ("3) 1,2,1,2,1,2...")
+         Escreval ("4) 1,2,3,1,2,3...")
+         Escreval ("")
+         leia (resposta[0])
+         Se resposta[0]=3 entao
+            acertou()
+            pontos()
+            repete[0]<-1
+            l[6]<-1
+         Senao
+            errou()
+            perdevida()
+         Fimse
+      Senao
+         perguntas()
+      fimse
+      timer(0)
+   caso 1
+      Se repete[1]<>1 entao
+         timer(30)
+         Escreval ("p - quero mais")
+         Escreval ("q - tudo faz sentido")
+         Escreval ("r - penso em levar alguém comigo")
+         Escreval ("s – sei")
+         Escreval ("v - ou")
+         Escreval ("^ - e")
+         Escreval ("~ - não")
+         Escreval ("-> - se...,então")
+         Escreval (", - (...)")
+         Escreval ("Com esse conhecimento decifre a mensagem substituindo as letras pelas frases.")
+         Escreval ("")
+         Escreval ("Não quero mais e nada faz sentido, mas penso em levar alguém comigo ou não sei,")
+         Escreval (" se quero mais, então tudo faz sentido.")
+         Escreval ("1)(p ^ ~q) ^ (r v ~s) p ^ q")
+         Escreval ("2)(~p^~q) v (r v s) p -> q")
+         Escreval ("3) ~p ^ ~q ^ r v ~s ^ p v ~q")
+         Escreval ("4)(~p ^ ~q) ^ (r v ~s) p -> q")
+         Escreval ("")
+         leia (resposta[1])
+         Se resposta[1]=4 entao
+            acertou()
+            pontos()
+            repete[1]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 2
+      Se repete[2]<>1 entao
+         timer (30)
+         Escreval ("- Qual é o último número? ")
+         Escreval ("")
+         Escreval (,det, " descubra qual número falta na sequência: ")
+         Escreval ("")
+         Escreval ("0,10,19,27,34,40,45,49,52,54,?")
+         Escreval ("1) 50")
+         Escreval ("2) 55")
+         Escreval ("3) 54")
+         Escreval ("4) 53")
+         leia (resposta[2])
+         Se resposta[2]=2 entao
+            acertou()
+            pontos()
+            repete[2]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 3
+      Se repete[3]<>1 entao
+         timer(30)
+         Escreval ("Descubra qual o resultado da equação abaixo:")
+         Escreval ("")
+         Escreval ("#+#=4")
+         Escreval ("@*#=12")
+         Escreval ("$+#=5")
+         Escreval ("@^#=36")
+         Escreval ("((5+#)+($*@))/2")
+         Escreval ("")
+         Escreval ("Digite sua resposta")
+         Escreval ("1) 7,4")
+         Escreval ("2) 12,5")
+         Escreval ("3) 9,6")
+         Escreval ("4) 7,9")
+         leia (resposta[3])
+         Se resposta[3]=2 entao
+            acertou()
+            pontos()
+            repete[3]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 4
+      Se repete[4]<>1 entao
+         timer(30)
+         Escreval ("             Vamos exercitar o seu português. Figuras de retórica:")
+         Escreval ("")
+         Escreval ("     Segundo o site Significados - Figuras de retórica, também conhecidas por")
+         Escreval ("  figuras de linguagem, são recursos linguísticos que ajudam a criar um significado")
+         Escreval ("     figurativo e expressivo a mensagem transmitida.Etimologicamente, a palavra")
+         Escreval ("“retórica” é derivada do grego rhetorike que significa justamente “arte de falar bem”.")
+         Escreval ("Costumava ser utilizada na Grécia Antiga para se referir ao modo como as ideias eram.")
+         Escreval ("                  transmitidas, com base na convicção e clareza.")
+         Escreval ("")
+         Escreval ("    Hipérbole - Consiste no exagero proposital de idéias ou sentimentos, com a ajuda")
+         Escreval ("       de palavras ou características de conteúdo semântico superior à realidade")
+         Escreval ("    Ex: A cidade amanheceu sob um dilúvio => A cidade amanheceu sob um forte chuva.")
+         Escreval ("")
+         Escreval ("Com base nesse conhecimento, identifique qual frase abaixo possui essa caracteristica.")
+         Escreval ("")
+         Escreval ("1) Foi ao hospital buscar a vida e encontrou a morte.")
+         Escreval ("2) Há crimes que podem trazer benefícios às vítimas.")
+         Escreval ("3) Ela é mais velha que uma múmia do Egito.")
+         Escreval ("4) Olha só que perna de pau, nem sabe jogar.")
+         leia (resposta[4])
+         Se resposta[4]=3 entao
+            acertou()
+            pontos()
+            repete[4]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 5
+      Se repete[5]<>1 entao
+         timer(30)
+         Escreval ("  Considerando 3 como número fixo na expressão e usando ordem das expressões.")
+         Escreval ("                       Descubra o enigma dos pontos.")
+         Escreval ("")
+         Escreval ("    :. :::::::::::::. ::::. :::::::::::::. ::::::::::::::: :::::::::::::.")
+         Escreval ("")
+         Escreval ("Considerando essa sequência de pontos, qual equação abaixo refere-se a imagem?")
+         Escreval ("")
+         Escreval ("1) 3^ 81/ 3* 27- 30* 27=")
+         Escreval ("2) 3^ 27/ 9* 27+ 30- 27=")
+         Escreval ("3) 3* 27/ 3* 27+ 30- 21=")
+         Escreval ("4) 3* 81/ 9* 27- 30+ 21=")
+         leia (resposta[5])
+         Se resposta[5]=2 entao
+            acertou()
+            pontos()
+            repete[5]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 6
+      Se repete[6]<>1 entao
+         timer(30)
+         Escreval ("")
+         Escreval(" _______  _______  _______  _______  _______ ")
+         Escreval("|     o ||     o || o   o || o   o ||       |")
+         Escreval("|       ||   o   ||       ||   o   ||   ?   |")
+         Escreval("| o     || o     || o   o || o   o ||       |")
+         Escreval("|_______||_______||_______||_______||_______|")
+         Escreval("| o   o ||     o ||     o ||       ||       |")
+         Escreval("|       ||   o   ||       ||   o   ||   ?   |")
+         Escreval("| o   o || o     || o     ||       ||       |")
+         Escreval("|_______||_______||_______||_______||_______|")
+         Escreval("")
+         Escreval("Descubra qual peça abaixo se encaixa na sequência acima:")
+         Escreval("")
+         Escreval(" _______  _______  _______  _______  _______ ")
+         Escreval("|     o || o   o ||       || o   o || o   o |")
+         Escreval("|       ||       ||   o   || o   o || o   o |")
+         Escreval("| o     || o   o ||       || o   o || o   o |")
+         Escreval("|_______||_______||_______||_______||_______|")
+         Escreval("| o   o ||       ||     o || o   o ||       |")
+         Escreval("|   o   ||       ||       || o   o ||       |")
+         Escreval("| o   o ||       || o     || o   o ||       |")
+         Escreval("|_______||_______||_______||_______||_______|")
+         Escreval("    1        2        3        4       5     ")
+         Escreval ("")
+         leia (resposta[6])
+         Se resposta[6]=5 entao
+            acertou()
+            pontos()
+            repete[6]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 7
+      Se repete[7]<>1 entao
+         timer(30)
+         Escreval ("")
+         Escreval (" ____________  ____________  ____________  ____________  ____________")
+         Escreval ("|1          &||3          #||7          @||?          ?||?          ?|")
+         Escreval ("|            ||            ||            ||            ||            |")
+         Escreval ("|            ||   #        ||   @  @  @  ||            ||            |")
+         Escreval ("|            ||            ||            ||            ||            |")
+         Escreval ("|     &      ||     #      ||      @     ||     ??     ||     ??     |")
+         Escreval ("|            ||            ||            ||            ||            |")
+         Escreval ("|            ||       #    ||   @  @  @  ||            ||            |")
+         Escreval ("|            ||            ||            ||            ||            |")
+         Escreval ("|&__________1||#__________3||@__________7||?__________?||?__________?|")
+         Escreval ("                                          \____________soma__________/")
+         Escreval ("")
+         Escreval ("Termine a sequência.")
+         Escreval ("")
+         Escreval (" ____________  ____________    ____________  ____________ ")
+         Escreval ("|10         %||6          !|  |7          @||5          $|")
+         Escreval ("|            ||            |  |            ||            |")
+         Escreval ("|  %      %  ||   !     !  |  |   @  @  @  ||  $      $  |")
+         Escreval ("|     %%     ||      !     |  |            ||            |")
+         Escreval ("|     %%     ||            |  |      @     ||      $     |")
+         Escreval ("|     %%     ||      !     |  |            ||            |")
+         Escreval ("|  %      %  ||   !     !  |  |   @  @  @  ||  $      $  |")
+         Escreval ("|            ||            |  |            ||            |")
+         Escreval ("|%_________10||!__________6|  |@__________7||$__________5|")
+         Escreval ("\____________soma__________/  \____________soma__________/")
+         Escreval ("              1)                          2)            ")
+         Escreval ("")
+         Escreval (" ____________  ____________    ____________  ____________ ")
+         Escreval ("|10          ||5          $|  |8          +||9          x|")
+         Escreval ("|            ||            |  |            ||      x     |")
+         Escreval ("|  %      %  ||  $      $  |  |      +     ||      x     |")
+         Escreval ("|     %%     ||            |  |    +   +   ||    x   x   |")
+         Escreval ("|     %%     ||     $      |  |   +     +  ||      x     |")
+         Escreval ("|     %%     ||            |  |    +   +   ||    x   x   |")
+         Escreval ("|  %      %  ||  $      $  |  |      +     ||      x     |")
+         Escreval ("|            ||            |  |            ||      x     |")
+         Escreval ("|%_________10||$__________5|  |+__________8||x__________9|")
+         Escreval ("\____________soma__________/  \____________soma__________/")
+         Escreval ("              3)                           4)")
+         leia (resposta[7])
+         Se resposta[7]=3 entao
+            acertou()
+            pontos()
+            repete[7]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 8
+      Se repete[8]<>1 entao
+         timer(30)
+         Escreval ("")
+         Escreval ("Condiderando:")
+         Escreval ("")
+         Escreval ("| / _ _ \ | / __ \")
+         Escreval ("")
+         Escreval ("Qual a próxima forma?")
+         Escreval ("1) | / _ _")
+         Escreval ("2) | /_ _")
+         Escreval ("3) |/ _ _")
+         Escreval ("4) |/  _ _")
+         leia (resposta[8])
+         Se resposta[8]=1 entao
+            acertou()
+            pontos()
+            repete[8]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 9
+      Se repete[9]<>1 entao
+         timer(30)
+         Escreval ("")
+         Escreval ("Descubra qual o próximo cubo:")
+         Escreval ("")
+         Escreval ("   ______    ______    ______    ______     ______ ")
+         Escreval ("  /     /|  /     /|  /     /|  /     /|   /     /|")
+         Escreval (" /_____/ | /_____/ | /_____/ | /_____/ |  /_____/ |")
+         Escreval (" |     | | |     | | |     | | |     | |  |     | |")
+         Escreval (" | 216 | / |1728 | / |5832 | / |13824| /  |?????| /")
+         Escreval (" |_____|/  |_____|/  |_____|/  |_____|/   |_____|/")
+         Escreval ("   ______    ______    ______    ______     ______ ")
+         Escreval ("  /     /|  /     /|  /     /|  /     /|   /     /|")
+         Escreval (" /_____/ | /_____/ | /_____/ | /_____/ |  /_____/ |")
+         Escreval (" |     | | |     | | |     | | |     | |  |     | |")
+         Escreval (" |  8  | / | 512 | / |2744 | / |8000 | /  |17576| /")
+         Escreval (" |_____|/  |_____|/  |_____|/  |_____|/   |_____|/")
+         Escreval ("   ______    ______    ______    ______     ______ ")
+         Escreval ("  /     /|  /     /|  /     /|  /     /|   /     /|")
+         Escreval (" /_____/ | /_____/ | /_____/ | /_____/ |  /_____/ |")
+         Escreval (" |     | | |     | | |     | | |     | |  |     | |")
+         Escreval (" |  0  | / | 64  | / |1000 | / |4096 | /  |10648| /")
+         Escreval (" |_____|/  |_____|/  |_____|/  |_____|/   |_____|/")
+         Escreval ("")
+         Escreval (" __________________________________________________")
+         Escreval ("   ______    ______    ______    ______     ______ ")
+         Escreval ("  /     /|  /     /|  /     /|  /     /|   /     /|")
+         Escreval (" /_____/ | /_____/ | /_____/ | /_____/ |  /_____/ |")
+         Escreval (" |     | | |     | | |     | | |     | |  |     | |")
+         Escreval (" |27000| / |24389| / |21952| / |19683| /  |29791| /")
+         Escreval (" |_____|/  |_____|/  |_____|/  |_____|/   |_____|/")
+         Escreval ("    1         2         3         4          5   ")
+         leia (resposta[9])
+         Se resposta[9]=3 entao
+            acertou()
+            pontos()
+            repete[9]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 10
+      Se repete[10]<>1 entao
+         timer(30)
+         Escreval ("Descubra o segredo por trás da trava da janela.")
+         Escreval	("")
+         Escreval	("Um quadrado azul;")
+         Escreval	("Um desenho de uma luva de boxe;")
+         Escreval	("Um quadrado com a cor *cyan*; ")
+         Escreval	("Um adesivo escrito dwight;")
+         Escreval	("Uma logo da Volkswagen.")
+         Escreval	("")
+         Escreval	("Seguindo a lógica, destrave a primeira trava.")
+         Escreval	("")
+         Escreval	("1. Evellyn")
+         Escreval	("2. Gustavo")
+         Escreval	("3. Mefisto")
+         Escreval	("4. Pinhais")
+         Escreval	("5. Mochila")
+         Escreval	("")
+         Leia(resposta[10])
+         Se resposta[10]=3 entao
+            acertou()
+            pontos()
+            repete[10]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 11
+      Se repete[11]<>1 entao
+         timer(30)
+         Escreval ("A seqüência de palavras abaixo segue uma determinada regra:")
+         Escreval ("Camiseta, acetona, macaco, abacaxi, mágico.")
+         Escreval ("Qual é a próxima palavra da sequência?")
+         Escreval ("1) Cavalo    ")
+         Escreval ("2) Azeite    ")
+         Escreval ("3) Maionese  ")
+         Escreval ("4) Basquete  ")
+         Escreval ("5) publicação")
+         leia (resposta[11])
+         Se resposta[11]=5 entao
+            acertou()
+            pontos()
+            repete[11]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 12
+      Se repete[12]<>1 entao
+         timer(30)
+         Escreval ("Maria tem três carros: um Gol, um Corsa e um Fiesta.")
+         Escreval ("Um dos carros é branco, o outro é preto, e o outro é azul.")
+         Escreval ("Sabe-se que:")
+         Escreval ("")
+         Escreval ("a) ou o Gol é branco, ou o Fiesta é branco,")
+         Escreval ("b) ou o Gol é preto, ou o Corsa é azul,")
+         Escreval ("c) ou o Fiesta é azul, ou o Corsa é azul,")
+         Escreval ("d) ou o Corsa é preto, ou o Fiesta é preto.")
+         Escreval ("")
+         Escreval ("Portanto, as cores do Gol, do Corsa e do Fiesta são, respectivamente:")
+         Escreval ("1) Branco, preto, azul")
+         Escreval ("2) Preto, azul, branco")
+         Escreval ("3) Azul, branco, preto")
+         Escreval ("4) Preto, branco, azul")
+         Escreval ("5) Branco, azul, preto")
+         leia (resposta[12])
+         Se resposta[12]=3 entao
+            acertou()
+            pontos()
+            repete[12]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   caso 13
+      Se repete[13]<>1 entao
+         timer(30)
+         Escreval ("São dados três grupos de 4 letras cada um:")
+         Escreval ("(MNAB) : (MODC) : (EFRS)")
+         Escreval ("Se a ordem alfabética adotada exclui as letras K,W e Y, então o grupo de ")
+         Escreval ("quatro letras que deve ser colocado à direita do terceiro grupo e que ")
+         Escreval ("preserva a relação que o segundo tem com o primeiro é:")
+         Escreval ("1) (EHUV)")
+         Escreval ("2) (EGUT)")
+         Escreval ("3) (EGVU)")
+         Escreval ("4) (EHUT)")
+         Escreval ("5) (EHVU)")
+         Escreval ("")
+         leia (resposta[13])
+         Se resposta[13]=2 entao
+            acertou()
+            pontos()
+            repete[13]<-1
+            l[6]<-1+l[6]
+         Senao
+            errou()
+            perdevida()
+         fimse
+      Senao
+         perguntas()
+      Fimse
+      timer(0)
+   Fimescolha
+Fimprocedimento
+
+//-------------------Inicio Procedimentos do apartamento-------------------//
+procedimento ladoespelho()
+Inicio
+   escreval("                              _____________________________________________________________________________ ")
+   escreval("                            /|                                                                             |\")
+   escreval("                           / |                                                                             | \")
+   escreval("                          /  |                                                                             |  \")
+   escreval("                         /   |                                                                             |   \")
+   escreval("                        /    |                                                                             |    \")
+   escreval("                       /     |                                                                             |     \")
+   escreval("                      /      |          +--------------+                                                   |      \")
+   escreval("                     /       |          ¦    /         ¦                                                   |       \")
+   escreval("                    /        |          ¦   /   /      ¦                                                   |        \")
+   escreval("                   /         |          ¦  /   /       ¦                                                   |         \")
+   escreval("                  /          |          ¦ /   /        ¦                                                   |          \")
+   escreval("                 /           |          ¦    /    /    ¦                                                   |           \")
+   escreval("                /            |          ¦   /    /     ¦                                                   |            |")
+   escreval("                |            |          ¦  /    /      ¦                                                   |            |")
+   escreval("                |            |          ¦ /    /   /   ¦                                                   |            |")
+   escreval("                |            |          ¦     /   /    ¦                                                   |  |\        |")
+   escreval("                |            |          ¦        /     ¦                                                   |  | \       |")
+   escreval("                |            |          +--------------+                                                   |  |  \      |")
+   escreval("                |            |                                                                             |  |   \     |")
+   escreval("                |            |                                                                             |  |    \    |")
+   escreval("                |            |                                                                             |  |    |    |")
+   escreval("                |            |                                                                             |  |    |    |")
+   escreval("                |            |                                                                             |  |    |    |")
+   escreval("                |            |                                                            ______           |  |O   |    |")
+   escreval("                |            |                                                           |------|          |  |'   |    |")
+   escreval("                |            |___________________________________________________________|  ##  |__________|  |    |    |")
+   escreval("                |           /                                                            |______|           \ |    |    |")
+   escreval("                |          /                                                                                 \|    |    |")
+   escreval("                |         /                                                                                   \    |    |")
+   escreval("                |        /                                                                                     \   |    |")
+   escreval("                |       /                                                                                       \  |    |")
+   escreval("                |      /                                                                                         \ |    |")
+   escreval("                |     /                                                                                           \|    |")
+   escreval("                |    /                                                                                             \    |")
+   escreval("                |   /                                                                                               \   |")
+   escreval("                |  /                                                                                                 \  |")
+   escreval("                | /                                                                                                   \ |")
+   escreval("                |/_____________________________________________________________________________________________________\|")
+   escolhas[2]<-3
+fimprocedimento
+//---------------------Procedimento Do Lado Do Espelho--------------------//
+Procedimento ladoporta()
+Inicio
+   escreval("                              _____________________________________________________________________________ ")
+   escreval("                            /|                                                                             |\")
+   escreval("                           / |                                                                             | \")
+   escreval("                          /  |                                                                             |  \")
+   escreval("                         /   |                                                                             |   \")
+   escreval("                        /    |                                                                             |    \")
+   escreval("                       /     |                                                                             |     \")
+   escreval("                      /      |                                                                             |      \")
+   escreval("                     /       |                                                                             |       \")
+   escreval("                    /        |                                                                             |        \")
+   escreval("                   /         |              __________________                                             |         \")
+   escreval("                  /          |              |                |             [[===========]]                 |          \")
+   escreval("                 /           |              |                |             ||*       *  ||                 |           \")
+   escreval("                /            |              |                |             || *   *   * ||                 |            |")
+   escreval("                |            |              |                |             ||  *     *  ||                 |            |")
+   escreval("                |            |              |                |             [[===========]]                 | |\         |")
+   escreval("                |            |              |                |           [[===============]]               | | \        |")
+   escreval("                |     /|     |              |                |           ||Noite estrelada||               | |  \       |")
+   escreval("                |    / |     |              |                |           [[===============]]               | |   \      |")
+   escreval("                |   /  |     |              | O              |          |___________________|              | |    \     |")
+   escreval("                |  |   |     |              | '              |          |___________________|              |  \    \    |")
+   escreval("                |  |   |     |              |                |          |         O         |              |   \    \   |")
+   escreval("                |  |   |     |              |                |          |___________________|              |    \    \  |")
+   escreval("                |  |   |     |              |                |          |         O         |              |     \    \ |")
+   escreval("                |  |  /      |              |                |          |___________________|              |      \   | |")
+   escreval("                |  | /       |              |                |          |     _________     |              |       \  | |")
+   escreval("                |  |/        |______________|________________|__________|____/____'____\____|______________|        \ | |")
+   escreval("                |           /                                           /   \           /   \               \        \| |")
+   escreval("                |          /                                                                                 \          |")
+   escreval("                |         /                                                                                   \         |")
+   escreval("                |        /                                                                                     \        |")
+   escreval("                |       /                                                                                       \       |")
+   escreval("                |      /                                                                                         \      |")
+   escreval("                |     /                                                                                           \     |")
+   escreval("                |    /                                                                                             \    |")
+   escreval("                |   /                                                                                               \   |")
+   escreval("                |  /                                                                                                 \  |")
+   escreval("                | /                                                                                                   \ |")
+   escreval("                |/_____________________________________________________________________________________________________\|")
+   escolhas[3]<-2
+fimprocedimento
+//---------------------Procedimento Do Lado Da Porta--------------------//
+procedimento ladoquadro()
+Inicio
+   escreval("                              _____________________________________________________________________________ ")
+   escreval("                            /|                                                                             |\")
+   escreval("                           / |                                                                             | \")
+   escreval("                          /  |                                                                             |  \")
+   escreval("                         /   |                                                                             |   \")
+   escreval("                        /    |                                                                             |    \")
+   escreval("                       /     |         [====================================================]              |     \")
+   escreval("                      /      |         |     /\ *               *     *           *         |              |      \")
+   escreval("                     /       |         |  * /__\         *                *          *      |              |       \")
+   escreval("                    /        |         |   /Naza\                *             *            |              |        \")
+   escreval("                   /         |         |  /------\   *                               *      |              |         \")
+   escreval("                  /          |         | ||()  ()||          *            *             *   |              |          \")
+   escreval("                 /           |         |*||  ()  ||               *               *         |              |           \")
+   escreval("                /            |         | ||()  ()||        * |>               *             |              |            |")
+   escreval("                |            |         | ||------||  *       |        * _____________ *     |              |            |")
+   escreval("                |            |         |/  \    /  \   \-----|-----/   |   Spei   |[]\      |              |            |")
+   escreval("                |            |         |oooo\  /oooo\   \_________/    !-OO--OO--=-O--      |              |            |")
+   escreval("                |            |         [====================================================]              |            |")
+   escreval("                |            |                                                                             |            |")
+   escreval("                |     /|     |                                                                             |            |")
+   escreval("                |    / |     |                                                                             |            |")
+   escreval("                |   /  |     |                                                                             |            |")
+   escreval("                |  /   |     |                                                                             |            |")
+   escreval("                | |    |     |                                                                             |            |")
+   escreval("                | |    |     |    _________                                                                |            |")
+   escreval("                | |    |     |   |---------|                                                               |            |")
+   escreval("                | |    |     |___|   ###   |_______________________________________________________________|            |")
+   escreval("                | |    |    /    |_________|                                                                \           |")
+   escreval("                | |    |   /                                                                                 \          |")
+   escreval("                | |O   |  /                                                                                   \         |")
+   escreval("                | |'   | /                                                                                     \        |")
+   escreval("                | |    |/                                                                                       \       |")
+   escreval("                | |    /                                                                                         \      |")
+   escreval("                | |   /                                                                                           \     |")
+   escreval("                | |  /                                                                                             \    |")
+   escreval("                | | /                                                                                               \   |")
+   escreval("                | |/                                                                                                 \  |")
+   escreval("                | /                                                                                                   \ |")
+   escreval("                |/_____________________________________________________________________________________________________\|")
+   escolhas[3]<-4
+fimprocedimento
+//---------------------Procedimento Do Lado Do Quadro--------------------//
+procedimento ladovazio()
+Inicio
+   escreval("                              _____________________________________________________________________________ ")
+   escreval("                            /|                                                                             |\")
+   escreval("                           / |                                                                             | \")
+   escreval("                          /  |                                                                             |  \")
+   escreval("                         /   |                                                                             |   \")
+   escreval("                        /    |                                                                             |    \")
+   escreval("                       /     |                                                                             |     \")
+   escreval("                      /      |                                                                             |      \")
+   escreval("                     /       |                                                                             |       \")
+   escreval("                    /        |                                                                             |        \")
+   escreval("                   /       /||                                                                             |         \")
+   escreval("                  /       / ||                                                                             |          \")
+   escreval("                 /       /  ||                                                                             |           \")
+   escreval("                /       /   ||                                                                             |            |")
+   escreval("                |      /    ||                                                                             |            |")
+   escreval("                |     /     ||                                                                             |            |")
+   escreval("                |    /     / |                                                                             |  |\        |")
+   escreval("                |   /     /  |                                                                             |  | \       |")
+   escreval("                |  /     /   |                                                                             |  |  \      |")
+   escreval("                | |     /    |                                                                             |  |   \     |")
+   escreval("                | |    /     |                                                                             |  |    \    |")
+   escreval("                | |   /      |                                                                             |  |    |    |")
+   escreval("                | |  /       |                                                                             |  |    |    |")
+   escreval("                | | /        |                                                                             |  |    |    |")
+   escreval("                | |/         |                                                                             |   \   |    |")
+   escreval("                |            |                                                                             |    \  |    |")
+   escreval("                |            |_____________________________________________________________________________|     \ |    |")
+   escreval("                |           /                                                                               \     \|    |")
+   escreval("                |          /                                                                                 \          |")
+   escreval("                |         /                                                                                   \         |")
+   escreval("                |        /                                                                                     \        |")
+   escreval("                |       /                                                                                       \       |")
+   escreval("                |      /                                                                                         \      |")
+   escreval("                |     /                                                                                           \     |")
+   escreval("                |    /                                                                                             \    |")
+   escreval("                |   /                                                                                               \   |")
+   escreval("                |  /                                                                                                 \  |")
+   escreval("                | /                                                                                                   \ |")
+   escreval("                |/_____________________________________________________________________________________________________\|")
+   escolhas[3]<-1
+fimprocedimento
+//---------------------Procedimento Do Lado Vazio--------------------//
+procedimento ladovazioluz()
+Inicio
+   escreval("                              _____________________________________________________________________________ ")
+   escreval("                            /|                                                                             |\")
+   escreval("                           / |                                                           O                 | \")
+   escreval("                          /  |                                                                             |  \")
+   escreval("                         /   |                                                              A              |   \")
+   escreval("                        /    |                                                                             |    \")
+   escreval("                       /     |                                                   Ã            S            |     \")
+   escreval("                      /      |                    R                                                        |      \")
+   escreval("                     /       |                                                 S                           |       \")
+   escreval("                    /        |                                                                             |        \")
+   escreval("                   /       /||                                              A                 Primeiras    |         \")
+   escreval("                  /       / ||                                                                Letra        |          \")
+   escreval("                 /       /  ||          A                                T                    De           |           \")
+   escreval("                /       /   ||                                                                Cada         |            |")
+   escreval("                |      /    ||                                                                Palavra      |            |")
+   escreval("                |     /     ||                         E                                      Ao Lado      |            |")
+   escreval("                |    /     / |                                         S                      Do           |  |\        |")
+   escreval("                |   /     /  |                                                                Espelho      |  | \       |")
+   escreval("                |  /     /   |                                                                             |  |  \      |")
+   escreval("                | |     /    |                                        P                                    |  |   \     |")
+   escreval("                | |    /     |                                                                             |  |    \    |")
+   escreval("                | |   /      |                                                                             |  |    |    |")
+   escreval("                | |  /       |                                                                             |  |    |    |")
+   escreval("                | | /        |                                S                                            |  |    |    |")
+   escreval("                | |/         |                                                                             |   \   |    |")
+   escreval("                |            |                                                                             |    \  |    |")
+   escreval("                |            |_____________________________________________________________________________|     \ |    |")
+   escreval("                |           /                                                                               \     \|    |")
+   escreval("                |          /                                                                                 \          |")
+   escreval("                |         /                                                                                   \         |")
+   escreval("                |        /                                                                                     \        |")
+   escreval("                |       /                                                                                       \       |")
+   escreval("                |      /                                                                                         \      |")
+   escreval("                |     /                                                                                           \     |")
+   escreval("                |    /                                                                                             \    |")
+   escreval("                |   /                                                                                               \   |")
+   escreval("                |  /                                                                                                 \  |")
+   escreval("                | /                                                                                                   \ |")
+   escreval("                |/_____________________________________________________________________________________________________\|")
+   escolhas[3]<-5
+fimprocedimento
+//----------------Procedimento Do Lado Vazio Com Luz Negra----------------//
+procedimento espelho()
+Inicio
+   escreval("            [[===================]]              ")
+   escreval("            ||                   ||1             ")
+   escreval("            ||   /    /          ||l             ")
+   escreval("            ||  /    /           ||e             ")
+   escreval("            || /    /      /     ||t             ")
+   escreval("            ||     /      /      ||r             ")
+   escreval("            ||    /      /       ||a             ")
+   escreval("            ||   /      /        ||d             ")
+   escreval("            ||  /      /         ||e             ")
+   escreval("            ||           /    /  ||c             ")
+   escreval("            ||          /    /   ||a             ")
+   escreval("            ||    /    /    /    ||d             ")
+   escreval("            ||   /               ||a             ")
+   escreval("            ||        /          ||v             ")
+   escreval("            ||       /   /    /  ||e             ")
+   escreval("            ||      /   /    /   ||z             ")
+   escreval("            [[===================]]              ")
+fimprocedimento
+//---------------------Procedimento espelho--------------------//
+procedimento EspelhoLuz()
+Inicio
+   escreval("            [[===================]]              ")
+   escreval("            ||                   ||o             ")
+   escreval("            ||   /    /          ||b             ")
+   escreval("            ||  /    /           ||o             ")
+   escreval("            || /    /      /     ||t             ")
+   escreval("            ||     /      /      ||a             ")
+   escreval("            ||    /      /       ||o             ")
+   escreval("            ||   /      /        ||e             ")
+   escreval("            ||  /      /         ||s             ")
+   escreval("            ||           /    /  ||t             ")
+   escreval("            ||          /    /   ||a             ")
+   escreval("            ||    /    /    /    ||n             ")
+   escreval("            ||   /               ||o             ")
+   escreval("            ||        /          ||c             ")
+   escreval("            ||       /   /    /  ||h             ")
+   escreval("            ||      /   /    /   ||a             ")
+   escreval("            [[===================]]o             ")
+fimprocedimento
+//---------------------Procedimento EspelhoLuzNegra--------------------//
+procedimento cofre3senhas()
+Inicio
+   escreval("[[===============================================================]]")
+   escreval("||     _____     _     ____   ___             __  ____   __      ||")
+   escreval("||     |    \   / \   /      /    |        | /  \ |   \ |  \     ||")
+   escreval("||     |__ _/  /___\  \___   \___ |        ||    ||__ / |   \    ||")
+   escreval("||     |      |     |     \      \ \  /\  / |    ||  \  |   /    ||")
+   escreval("||     |      |     | ____/  ____/  \/  \/   \__/ |   \ |__/     ||")
+   escreval("||                                                               ||")
+   escreval("||      __________          __________          __________       ||")
+   escreval("||     |          |        |          |        |          |      ||")
+   escreval("||     |          |        |          |        |          |      ||")
+   escreval("||     |          |        |          |        |          |      ||")
+   escreval("||     |          |        |          |        |          |      ||")
+   escreval("||     |          |        |          |        |          |      ||")
+   escreval("||     |__________|        |__________|        |__________|      ||")
+   escreval("||                                                               ||")
+   escreval("||                                                               ||")
+   escreval("||                                                               ||")
+   escreval("[[===============================================================]]")
+fimprocedimento
+//---------------------Procedimentos cofre3senhas--------------------//
+procedimento cofreestrelas()
+Inicio
+   escreval("[[====================================]]")
+   escreval("||*    _____     _     ____   ___    *||")
+   escreval("||     |    \   / \   /      /        ||")
+   escreval("||     |__ _/  /___\  \___   \___     ||")
+   escreval("||     |      |     |     \      \    ||")
+   escreval("||     |      |     | ____/  ____/    ||")
+   escreval("||                                    ||")
+   escreval("||    __________        __________    ||")
+   escreval("||   |          |      |          |   ||")
+   escreval("||   |          |      |          |   ||")
+   escreval("||   |          |      |          |   ||")
+   escreval("||   |          |      |          |   ||")
+   escreval("||   |          |      |          |   ||")
+   escreval("||   |__________|      |__________|   ||")
+   escreval("||                                    ||")
+   escreval("||                                    ||")
+   escreval("||*                                  *||")
+   escreval("[[====================================]]")
+fimprocedimento
+//---------------------Procedimento CofreEstrelas--------------------//
+procedimento Fechadura()
+Inicio
+   escreval("            [[===================]]              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||      _______      ||              ")
+   escreval("            ||     /       \     ||              ")
+   escreval("            ||    /         \    ||              ")
+   escreval("            ||   |           |   ||              ")
+   escreval("            ||   |           |   ||              ")
+   escreval("            ||    \         /    ||              ")
+   escreval("            ||     \_______/     ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||        ___        ||              ")
+   escreval("            ||       /   \       ||              ")
+   escreval("            ||      |     |      ||              ")
+   escreval("            ||       \   /       ||              ")
+   escreval("            ||       |   |       ||              ")
+   escreval("            ||       |___|       ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            ||                   ||              ")
+   escreval("            [[===================]]              ")
+fimprocedimento
+//---------------------Procedimento Fechadura--------------------//
+procedimento menuquarto()
+inicio
+   escreval("Você Deseja:")
+   escreval("1- Escolher outro lado para investigar, 2- Investigar este lado do quarto.")
+   Leia(escolhas[0])
+   Se escolhas[0]=1 entao
+      escreval("")
+      escreval("Qual lado deseja investigar?")
+      escreval("")
+      escreval("1- Vazio, 2- Lado da porta, 3- Lado do espelho, 4- Lado do quadro")
+      leia(escolhas[1])
+      se escolhas[1]=1 entao
+         limpatela
+         escolhas[3]<-1
+         Ladovazio()
+         menuquarto()
+      senao
+         se escolhas[1]=2 entao
+            limpatela
+            escolhas[3]<-2
+            ladoporta()
+            menuquarto()
+         senao
+            se escolhas[1]=3 entao
+               limpatela
+               escolhas[3]<-3
+               ladoespelho()
+               menuquarto()
+            senao
+               limpatela
+               escolhas[3]<-4
+               ladoquadro()
+               menuquarto()
+            fimse
+         fimse
+      fimse
+   senao
+      investigar()
+   fimse
+fimprocedimento
+//---------------Procedimento Menu De Escolhas No Quarto---------------//
+procedimento investigar()
+Inicio
+   se escolhas[3]=1 entao  //Lado Vazio
+      limpatela
+      ladovazio()
+      escreval("Deseja usar algum item do seu inventario?")
+      se escolhas[4]=1 entao
+         limpatela
+         ladovazioluz()
+         escreval("")
+         menuquarto()
+      senao
+         limpatela
+         escreval("Você não possui o item necessario")
+         ladovazio()
+         menuquarto
+      Fimse
+      se escolhas[3]=2 entao //Lado da porta
+         limpatela
+         ladoporta()
+         escreval("Deseja olhar em qual local?")
+         escreval("")
+         escreval("1- porta, 2- Gaveta")
+         leia(escolhas[5])
+         se escolhas[5]=1 entao
+            se chave=0 entao
+               limpatela
+               fechadura()
+               escreval("")
+               escreval("Você não possui a chave")
+               escreval("")
+               menuquarto()
+            senao
+               limpatela
+               escreval("Parabens! Você Conseguiu fugir do quarto") //Comando Se O Jogador Sair Do Quarto
+               escreval("")
+               menuquarto()
+            senao
+               se escolhas[5]=2 entao
+                  se carta=0 entao
+                     limpatela
+                     escreval("Você obteve uma carta que nela esta escrito:")
+                     carta<-1
+                     escreval("")
+                     escreval("As estrelas são como seu olhar, brilhante e lindo.")
+                     escreval("")
+                     menuquarto()
+                  senao
+                     limpatela
+                     escreval("Você ja olhou aqui")
+                     menuquarto()
+                  senao
+                     se escolhas[3]=3 entao //Lado Do Espelho
+                        limpatela
+                        ladoespelho()
+                        escreval("Deseja olhar em qual local?")
+                        escreval("")
+                        escreval("1- espelho, 2- Cofre")
+                        leia(escolhas[6])
+                        se escolhas[4]=0 entao
+                           se escolhas[6]=1 entao
+                              limpatela
+                              espelho()
+                              menuquarto()
+                              se escolhas[6]=2 entao
+                                 cofreestrelas()
+                                 escreval("Qual a senha")
+                                 leia(senhacofreestrela)
+                                 se senhacofreestrela=34 entao
+                                    escolhas[4]<-1
+                                    escreval("Parabens você obteve a luz negra!")
+                                    limpatela
+                                    ladoespelho()
+                                    menuquarto()
+                                 senao
+                                    se escolhas[6]=1 entao
+                                       limpatela
+                                       espelholuz()
+                                       menuquarto()
+                                    senao
+                                       se cofreestrela=0 entao
+                                          limpatela
+                                          escreval("Você ja descobriu a senha")
+                                          ladoespelho()
+                                          menuquarto()
+                                       senao                  //Lado Do Quadro
+                                          limpatela
+                                          ladoquadro()
+                                          escreval("")
+                                          menuquarto()
+                                          se escolhas[3]=4 entao
+                                             se chave=0 entao
+                                                limpatela
+                                                cofre3senhas()
+                                                escreval("Qual a senha")
+                                                leia(senhacofre3)
+                                                se senhacofre3=fno entao
+                                                   chave<-1
+                                                   escreval("Parabens! Você encontrou a chave!")
+                                                   menuquarto()
+                                                senao
+                                                   escreval("Você ja viu tudo por aqui!")
+                                                   menuquarto()
+                                                fimse
+                                             fimse
+                                          fimse
+                                       fimse
+                                    fimse
+                                 fimse
+                              fimse
+                           fimse
+                        fimse
+                     fimse
+                  fimse
+               fimse
+            fimse
+         fimse
+      fimse
+   fimse
+fimprocedimento
+
+//---------------------Fim Dos Procedimentos--------------------//
+
+
+
+
+Inicio
+   Iniciar<-1
+   Vidas<-3
+   Enquanto (iniciar=1) e (vidas>=1) faca
+      Repita
+         menu()
+         Se (parar<>1) entao
+            Limpatela
+            timer(30)
+            topo()
+            Escreval ("                   2017. Noite fria e silenciosa em Curitiba.")
+            Escreval ("             *              *                  *       *    *   *   ")
+            Escreval ("                  *    *        *    *    *     O         *       ")
+            Escreval ("                  _        *            *              *  _        *")
+            Escreval ("              *  |.|   __   __  *            * __       _|.|_       ")
+            Escreval ("           *     |.|_ |: | |:.|__   ________  |::|_____|.. ::|______")
+            Escreval ("           ______|    |.:|_|  |..|_| .... ::|_|.        : .         |")
+            Escreval ("")
+            Escreval ("")
+            Escreval ("                          Quando de repente.")
+            Escreval ("                          - AAAAAAAHHHHHHHH")
+            Escreval ("")
+            Escreval ("                           - Mas o que foi isso?")
+            Escreval ("                           - Por aqui rápido!")
+            Escreval ("           - Os gritos vêm do apartamento das senhoritas Espandal.")
+            Escreval ("")
+            Escreval ("                               - SOCORRO!")
+            Escreval ("")
+            Escreval ("                    - O portão do prédio está trancado.")
+            Escreval ("")
+            Escreval ("                             - EEEEEEEEE!")
+            Escreval ("")
+            Escreval ("                    - Para trás por favor, sou policial.")
+            Escreval ("                           - Por aqui senhor.")
+            Escreval ("                         - Os gritos pararam...")
+            Escreval ("")
+            Escreval ("")
+            continuar()
+            limpatela
+            topo()
+            Escreval ("                - As senhoritas Espandal moram no 3° andar.")
+            Timer (30)
+            Escreval ("                        /\     __________                 ")
+            Escreval ("                       /3/    |__________|                ")
+            Escreval ("                       \/    /____________\               ")
+            Escreval ("                            |______________|              ")
+            Escreval ("                           /________________\             ")
+            Escreval ("                          |__________________|            ")
+            Escreval ("                         /____________________\           ")
+            Escreval ("                        |______________________|          ")
+            Escreval ("")
+            Escreval ("                            - Vamos logo.")
+            Escreval ("")
+            Escreval ("")
+            Escreval ("                            ______________")
+            Escreval ("                           |              | \ | /")
+            Escreval ("                      \ | /|   ESPANDAL   | -Tok- ")
+            Escreval ("                      -Tok-|      13      | / | \")
+            Escreval ("                      / | \|              |")
+            Escreval ("                           |  \ | /    O  |")
+            Escreval ("                           |  -Tok-       |")
+            Escreval ("                           |  / | \       |")
+            Escreval ("                           |              |")
+            Escreval ("                           |              |")
+            Escreval ("                           |              |")
+            Escreval ("                           |______________|")
+            Escreval ("")
+            Escreval ("")
+            Escreval ("                  - Aqui é a polícia, está tudo bem?")
+            Escreval ("")
+            Escreval ("         Ninguém responde, então o policial decide arrombar a porta.")
+            Escreval ("")
+            Escreval ("                               - Ó meu Deus!")
+            Escreval ("")
+            Escreval ("           Ao entrarem no quarto se deparam com uma cena horrivel.")
+            Escreval ("Todos os móveis estão quebrados e muito sangue se encontra esparramado pelo chão.")
+            Escreval ("")
+            Escreval ("              Uma das pessoas que subiu junto com o policial pergunta:")
+            Escreval ("")
+            Escreval ("                         - Onde estão as Espandal?")
+            Escreval ("")
+            continuar()
+            limpatela
+            hist<-0
+            repete[0]<-0
+            repete[1]<-0
+            repete[2]<-0
+            repete[3]<-0
+            repete[4]<-0
+            Enquanto (hist<>5) e (vidas<>0) faca
+               limpatela
+               topo()
+               Escreval ("       Sua missão nessa cena é achar os corpos das vítimas.")
+               Escreval ("Para encontrá-los você dispõe de 4 locais exploráveis nesse quarto.")
+               Escreval ("")
+               Escreval ("                Selecione uma das opções:")
+               Escreval ("")
+               Escreval ("                       Boa sorte!")
+               Escreval ("")
+               Escreval ("Selecione abaixo um dos cantos do quarto das senhoritas Espandal.")
+               Escreval ("")
+               Escreval ("1 - Canto direito do quarto, próximo ao guarda roupas.")
+               Escreval ("2 - Canto esquerdo, próximo a chaminé.")
+               Escreval ("3 - Janela central do quarto.")
+               Escreval ("4 - Camas das vítimas.")
+               Escreval ("")
+               Escreval ("5 - Continuar.                                        6 - Pular.")
+               Leia (hist)
+               Escolha hist
+               caso 1
+                  Se l[6]<1 entao
+                     perguntas()
+                  Senao
+                     investigacao()
+                  Fimse
+               caso 2
+                  Se l[6]<2 entao
+                     perguntas()
+                  Senao
+                     investigacao()
+                  Fimse
+               caso 3
+                  Se l[6]<3 entao
+                     perguntas()
+                  Senao
+                     investigacao()
+                  Fimse
+               caso 4
+                  Se l[6]<4 entao
+                     perguntas()
+                  Senao
+                     investigacao()
+                  Fimse
+               caso 6
+                  parar<-1
+                  historiaerrada()
+               Fimescolha
+            Fimenquanto
+            Se ponto=10 entao
+               evidencias[0]<-"Arma do Crime."
+               evidencias[4]<-"Cabelo."
+               resumofase()
+            fimse
+            Se ponto=20 entao
+               evidencias[0]<-"Arma da Crime."
+               evidencias[1]<-"Corpo de Jaqueline Espandal."
+               evidencias[4]<-"Cabelo."
+               resumofase()
+            Fimse
+            Se ponto=30 entao
+               evidencias[0]<-"Arma da Crime."
+               evidencias[1]<-"Corpo de Jaqueline Espandal."
+               evidencias[2]<-"Corpo de Vanessa Espandal."
+               evidencias[3]<-"Senha do Cofre das Senhoritas Espandal."
+               evidencias[4]<-"Cabelo."
+               resumofase()
+            Fimse
+            Se ponto=40 entao
+               evidencias[0]<-"Arma da Crime."
+               evidencias[1]<-"Corpo de Jaqueline Espandal."
+               evidencias[2]<-"Corpo de Vanessa Espandal."
+               evidencias[3]<-"Senha do Cofre das Senhoritas Espandal."
+               evidencias[4]<-"Cabelo."
+               vidas<-vidas+1
+               resumofase()
+            Fimse
+            limpatela
+            Se (vidas<>0) entao
+               topo()
+               Escreval ("   Como ",det," estava próximo do chão, observa que uma gota de sangue pinga")
+               Escreval ("     constantemente no meio do chão abaixo da saída de fumaça. Logo pensa:")
+               Escreval ("                - Mas...como? Vou ver o há dentro da chaminé.")
+               Escreval ("   Quando detetive ", det," olha pela abertura da chaminé se depara com uma")
+               Escreval ("                cena assustadora. O ", evidencias[2])
+               Escreval ("Após ficar um pouco atordoado com a violenta cena,",det," chega próximo à janela")
+               Escreval ("           para avista a noite, quando vê o ", evidencias[1])
+               Escreval (" Os Corpos das senhoritas Espandal são encaminhados ao Instituto Médico Legal")
+               Escreval (" para uma autopsia. A arma do crime foi para análise em busca de digitais que")
+               Escreval ("                         pudessem ser identificadas.")
+               Escreval ("   Detetive ",det," foi acompanhar de perto os trabalhos dos analistas.")
+               Escreval ("")
+               continuar()
+               limpatela
+               l[6]<-0
+               Enquanto (hist<>4) e (vidas<>0) faca
+                  topo()
+                  Escreval ("")
+                  Escreval ("                             5 - Arma do crime.")
+                  Escreval ("")
+                  Escreval ("                   Escolha qual análise deseja fazer")
+                  Escreval ("                        1) Análise superficial")
+                  Escreval ("                        2) Análise analitica")
+                  Escreval ("                        3) Análise profunda")
+                  Escreval ("")
+                  Escreval ("4 - Continuar.                                             ")
+                  leia (hist)
+                  Escreval ("")
+                  Escolha hist
+                  caso 1
+                     Se l[6]<1 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  caso 2
+                     Se l[6]<2 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  caso 3
+                     Se l[6]<3 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  Fimescolha
+               Fimenquanto
+               Se ponto<=50 entao
+                  analise()
+               Fimse
+               Se ponto>=51 entao
+                  analisecompleta
+               Fimse
+            Fimse
+            resumofase()
+            Se (vidas<>0) entao
+               limpatela
+               Timer(10)
+               Escreval ("      No outro dia os Jornais publicam notícias sobre o ocorrido.")
+               Escreval ("      __________________________________________________________ ")
+               Escreval ("     |                                                12/05/2017|__")
+               Escreval ("     |                    CURITIBA EM ALERTA                    |  |")
+               Escreval ("     |                                                          |  |")
+               Escreval ("     |                                                          |  |")
+               Escreval ("     |VIOLÊNCIA                                                 |  |")
+               Escreval ("     |     VIOLENTO ASSASINATO ASSUSTA MORADORES DO CENTRO      |  |")
+               Escreval ("     | Após o brutal assassinato das senhoritas Espandal ocorri-|  |")
+               Escreval ("     |no prédio  em que residiam,  a  Polícial  Civil  e Militar|  |")
+               Escreval ("     |unem forças afim de descobrir o paradeiro do assassino. O |  |")
+               Escreval ("     |delegado Ferlin segue a frente das investigações e garante|  |")
+               Escreval ("     |prender o assassino até o final do dia de hoje.           |  |")
+               Escreval ("     |Notícia na integra p.2.                                   |  |")
+               Escreval ("     |                                                          |  |")
+               Escreval ("     |ESPORTE                                                   |  |")
+               Escreval ("     |  Atletiba termina sem gols e Coritiba se sagra campeão   |  |")
+               Escreval ("     |                      paranaense                          |  |")
+               Escreval ("     | Deu a lógica e o Coritiba é o campeão paranaense mais uma|  |")
+               Escreval ("     |vez. Neste  domingo, o  Coxa poderia  até mesmo perder por|  |")
+               Escreval ("     |dois gols de diferença no Couto Pereira, mas não deu chan-|  |")
+               Escreval ("     |ces ao Atlético-PR, jogou melhor durante  todo o jogo con-|  |")
+               Escreval ("     |quistando o título com um empate sem gols.                |  |")
+               Escreval ("     |Notícia na integra p.4.                                   |  |")
+               Escreval ("     |                                                          |  |")
+               Escreval ("     |SAÚDE                                                     |  |")
+               Escreval ("     |  25 POSTOS DE SAÚDE DE CURITIBA ABREM NO SÁBADO PARA A   |  |")
+               Escreval ("     |            VACINAÇÃO CONTRA A GRIPE                      |  |")
+               Escreval ("     | O Dia D da vacinação contra a gripe acontece neste sábado|  |")
+               Escreval ("     |(13) em Curitiba. De acordo com a Secretaria Municipal  de|  |")
+               Escreval ("     |Saúde, 25 das 110 unidades básicas estarão abertas  das 8h|  |")
+               Escreval ("     |às 17h. Diferente de anos anteriores, não haverá  imuniza-|  |")
+               Escreval ("     |ção em pontos de grande  circulação, como  shoppings e su-|  |")
+               Escreval ("     |permercados.                                              |  |")
+               Escreval ("     |Notícia na integra p.3.                                   |  |")
+               Escreval ("     |__________________________________________________________|  |")
+               Escreval ("      |___________________________________________________________|")
+               continuar()
+               Escreval ("                         Naquele mesmo dia...")
+               Escreval ("")
+               Escreval ("           No final da tarde o polícia prendeu um suspeito.")
+               Escreval ("Após ler alguns jornais o detetive ", det, " foi visitar o suspeito,")
+               Escreval ("                   pois era um velho conhecido.")
+               Escreval ("")
+               Escreval ("                 Escolha um nome para o suspeito: ")
+               Escreval ("")
+               leia (susp)
+               Limpatela
+               topo()
+               Escreval ("         - Acredito que seja inocente ",susp," e irei provar isso.")
+               Escreval ("")
+               Escreval (                        susp,", se justifica ao amigo:")
+               Escreval ("   - Uma era cartomante e a outra era costureira. Eram donas daquele prédio")
+               Escreval ("             inteiro e moravam sozinhas nele. Não tinham inimigos.")
+               Escreval ("                 - E por que a polícia acha que você as matou?")
+               Escreval ("")
+               Timer(0)
+               continuar
+               limpatela
+               Se ponto<50 entao
+                  topo()
+                  historiaerrada2()
+                  continuar()
+                  limpatela
+                  delegado()
+                  continuar()
+                  limpatela
+                  topo()
+                  iml()
+                  autopsia()
+                  continuar()
+                  limpatela
+                  topo()
+                  entrevista()
+                  Continuar()
+                  Escreval ("                - Você conseguiu reconhecer o que diziam?")
+                  Escreval ("- Uma das vozes era de um homem, a outra não consegui identificar de qual das")
+                  Escreval ("mulheres era. Parecia que estavam falando sobre fidelidade ou algo do genero.")
+                  Escreval ("                           - O que fizeram depois?")
+                  Escreval ("- O policial que nos acompanhava, arrombou a porta e quando entramos não vimos")
+                  Escreval ("                             ninguém no quarto.")
+                  Escreval ("                   - Tudo bem. Obrigado pelo seu tempo.")
+                  continuar()
+                  limpatela
+                  topo()
+                  entrevista2()
+                  Escreval ("                     Então, o que você viu naquele dia?")
+                  Escreval ("- Ouvimos uma discussão ao chegarmos na porta das Espandal. Uma das vozes com.")
+                  Escreval ("certeza era de ",susp," e a outra de Jaqueline Espandal. Assim que entramos
+                  Escreval ("                  tenho certeza que vi ele pulando a janela.")
+                  Escreval ("                        - Outras pessoas também viram?")
+                  Escreval ("                   - Não tenho certeza, mas eu sei que vi")
+                  Escreval ("                                   - Hum.")
+                  continuar()
+                  limpatela
+                  topo()
+                  entrevista3()
+                  Escreval ("                   - O que leva você a crer nessa possibilidade?")
+                  Escreval ("      - ",det," ele é traficante, com certeza devia haver um nóia com ele.")
+                  Escreval ("                          - Obrigado pelo tempo, até mais.")
+                  continuar()
+               Senao
+                  Se ponto>50 entao
+                     limpatela
+                     topo()
+                     Escreval ("- Por causa do dinheiro claro, eu estava nos papéis. No dia em que uma delas me pediu")
+                     Escreval ("para sacar 4 mil reais de sua conta no banco. Fui eu quem trouxe pra ela, fui o último")
+                     Escreval ("a ver as duas com vida. A polícia acha que as matei e roubei o dinheiro.")
+                     Escreval ("- Besteira. Estão chutando, não possuem provas. Te conheço a anos e acredito fielmente")
+                     Escreval ("que não seria capaz de matar as senhoritas Espandal.")
+                     Escreval ("- Não possuo provas da minha inocência. Acho que nada pode ser feito por mim.")
+                     Escreval ("- Pelo contrário meu amigo, vou provar sua inocência e descobrir quem é o verdadeiro")
+                     Escreval ("assassino.")
+                     delegado()
+                     continuar()
+                     limpatela
+                     topo()
+                     iml()
+                     autopsia()
+                     continuar()
+                     limpatela
+                     topo()
+                     entrevista()
+                     Escreval ("- Você conseguiu reconhecer o que diziam?")
+                     Escreval ("- Nenhuma era das mulheres, as duas pareciam de homem. Um falava francês com certeza, ouvi dizer")
+                     Escreval ("“sacre” e “diable”. O outro falava uma língua diferente, talvez italiano, não consegui entender")
+                     Escreval ("nenhuma palavra.")
+                     Escreval ("- Você fala italiano senhor Daniel?")
+                     Escreval ("- Não, mas era francês, com certeza.")
+                     Escreval ("")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("A segunda testemunha a ser interrogada foi o senhor Filipak, dono de um restaurante naquele bairro.")
+                     Escreval (" Ele contou a mesma história que Daniel, a não ser pela parte das vozes.")
+                     Escreval ("- Um era definitivamente francês, ouvi “diable” e “modieu”. Acho que o outro falou holandês.")
+                     Escreval ("- Você fala holandês?")
+                     Escreval ("- Não.")
+                     Escreval ("- Certo.")
+                     Escreval ("- Obrigado pela ajuda e pela refeição cortesia.")
+                     Escreval ("- Cortesia?")
+                     continuar()
+                     limpatela()
+                     topo()
+                     entrevista3()
+                     Escreval ("- Pode me dizer algo sobre o outro homem que ouviu? Era russo?")
+                     Escreval ("- Não, espere. Talvez espanhol.")
+                     Escreval ("- Você fala espanhol? Ou russo senhor Renildo?")
+                     Escreval ("- Não.")
+                     continuar()
+                     limpatela
+                  Fimse
+               Fimse
+            Fimse
+            Se (vidas<>0) entao
+               limpatela
+               timer(30)
+               Enquanto (hist<>6) e (vidas<>0) faca
+                  topo()
+                  Escreval (" ___________________________________________________________")
+                  Escreval ("|             Console de Análise e Comparação               |")
+                  Escreval ("|                                                           |")
+                  Escreval ("|                           DNA                             |")
+                  Escreval ("|___________________________________________________________|")
+                  Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+                  Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+                  Escreval ("")
+                  Escreval ("1) - Fibra")
+                  Escreval ("2) - Sequência ADN")
+                  Escreval ("3) - ADN/ARN")
+                  Escreval ("4) - Análise molecular")
+                  Escreval ("5) - Genes e genomas")
+                  Escreval ("")
+                  Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::")
+                  Escreval ("¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨")
+                  Escreval ("")
+                  Escreval ("6 - SAIR.")
+                  Escreval ("")
+                  leia (hist)
+                  l[6]<-0
+                  Escolha (hist)
+                  Caso 1
+                     Se l[6]<1 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  Caso 2
+                     Se l[6]<2 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  Caso 3
+                     Se l[6]<3 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  Caso 4
+                     Se l[6]<4 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse)
+                  Caso 5
+                     Se l[6]<5 entao
+                        perguntas()
+                     Senao
+                        investigacao()
+                     Fimse
+                  Fimescolha
+               Fimenquanto
+               Se (ponto<=50) entao
+                  limpatela
+                  topo()
+                  Escreval ("")
+                  Escreval (".........::::::::::::Resultados::::::::::::.........")
+                  Escreval ("")
+                  Escreval ("XXX - Sequência com erro.")
+                  Escreval ("DNA - DESCONHECIDO.")
+                  Escreval ("")
+                  Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::: ")
+                  Continuar()
+               Senao
+                  Se (ponto>=50) e (ponto<=80) entao
+                     limpatela
+                     topo()
+                     Escreval ("")
+                     Escreval (".........::::::::::::Resultados::::::::::::.........")
+                     Escreval ("")
+                     Escreval ("XXX - Sequência compatível com Homo Sapiens.")
+                     Escreval ("DNA - HUMANO.")
+                     Escreval ("")
+                     Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::: ")
+                     Continuar()
+                  Senao
+                     Se (ponto>90) entao
+                        limpatela
+                        topo()
+                        Escreval ("")
+                        Escreval (".........::::::::::::Resultados::::::::::::.........")
+                        Escreval ("")
+                        Escreval ("XXX - Sequência compatível com Troglodytes gorilla")
+                        Escreval ("DNA - ANIMAL")
+                        Escreval ("")
+                        Escreval (":::::::::::::::::::::::::::::::::::::::::::::::::::: ")
+                        continuar()
+                     Fimse
+                  Fimse
+               Fimse
+               limpatela
+               Se vidas<>0 entao
+                  topo()
+                  Escreval (det," ficou pensativo e decidiu voltar a cena do crime, para uma segunda análise mais tranquila")
+                  Escreval ("Chegando ao apartamento ", det, " encontra-se com o policial que guarda o local.")
+                  Escreval ("Falei com chefe de polícia e estou autorizado a investigar.")
+                  Escreval ("Tudo bem, me acompanhe.")
+                  Escreval ("Podemos ver os fundos primeiro? Onde acharam o corpo da senhorita Vanessa.")
+                  Escreval ("Como quiser.")
+                  Escreval ("")
+                  Escreval ("Foi aqui detetive.")
+                  Escreval (det, " observa o local todo, ao olhar para cima observa que a janela do quarto de onde a vítima")
+                  Escreval (" foi atirada estava fechada.")
+                  Escreval ("- E as janelas do quarto andar estavam fechadas naquela noite?")
+                  Escreval	("- Sim, as janelas estavam fechadas e uma persiana estava aberta.")
+                  Escreval	("- Interessante, e este para-raios qual a distância dele até as janelas?")
+                  Escreval	("- Uns dois metros, mas longe demais, mesmo se alguém o escalasse e de qualquer forma as janelas")
+                  Escreval ("estavam fechadas.")
+                  Escreval ("")
+                  Escreval	("O Detetive ", det," ficou pensativo por alguns minutos sem dizer uma palavra.")
+                  continuar()
+                  limpatela
+                  topo()
+                  Escreval	("Os dois voltaram para entrada do prédio e comeram a caminhar adentrando o edifício.")
+                  Escreval	("- As portas e janelas estavam fechadas quando chegamos. Não havia como sair.")
+                  Escreval	("Procurei em todo lugar.")
+                  Escreval	("- Talvez os assassinos tenham escapado enquanto vocês estavam lá em cima.")
+                  Escreval	("- Acho que a multidão lá fora teria visto algo, não?")
+                  Escreval	("- A porta também estava trancada quando chegou?")
+                  Escreval	("- Sim, precisei arromba-la, a chave esteva na fechadura por dentro.")
+                  Escreval	(det," aproveitou a deixa e perguntou.")
+                  Escreval	("E você ouviu os assassinos discutindo?")
+                  Escreval	("- Não muito bem, ouvi duas vozes de homem, um claramente francês. A outra era meio um guincho.")
+                  Escreval ("Não reconheci a lingua.")
+                  Escreval ("")
+                  Escreval	("Chegando a cena do crime.")
+                  continuar()
+                  limpatela
+                  resumofase()
+                  //Condições para levar o jogador a um dos finais.
+                  Se (ponto<=50) entao
+                     limpatela
+                     topo()
+                     Escreval ("")
+                     Escreval	("- O que está diferente daquela noite?")
+                     Escreval	("- Haviam sacos de dinheiro no chão. Devolvemos para o banco.")
+                     Escreval	("- Tem certeza que estas janelas estavam fechadas e trancadas naquela noite?")
+                     Escreval	("O detetive ", det," chega mais próximo da janela e avista um prego que")
+                     Escreval	("ao ser apertado destrava a janela que se abre em seguida.")
+                     Escreval	("O guarda assustado olha para ", det)
+                     Escreval	("- Como fez isso?")
+                     Escreval	("- Aquele prego não segurava a janela, ele soltava uma trava escondida.")
+                     Escreval ("Ao olhar para o chão e vê um pedaço de um papel no assoalho do apartamento")
+                     Escreval ("Quando leva a mão ele vê a seguinte mensagem.")
+                     Escreval ("Dentro do envolope havia uma carta:")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval (" ____________________________________")
+                     Escreval ("|Jaqueline,                          |")
+                     Escreval ("|  Amo você como jamais amei alguém, |")
+                     Escreval ("|por favor fique comigo. Peço descul-|")
+                     Escreval ("|pas  por ter  ficado nervoso  por te|")
+                     Escreval ("|ver junto com o delegado, sabes  que|")
+                     Escreval ("|te amo. Mesmo sabendo que nunca me  |")
+                     Escreval ("|destes bola, ainda sim amo-te muito.|")
+                     Escreval ("|  Por  favor se  afaste da  Vanessa,|")
+                     Escreval ("|ela  te faz  mal e não  gosta nenhum|")
+                     Escreval ("|pouco de mim. Desde que falei que a |")
+                     Escreval ("|amo, ela tenta me afastar de ti.    |")
+                     Escreval ("|  Me de uma chance, por  favor? Per-|")
+                     Escreval ("|doo-te por ter saído com o delegado.|")
+                     Escreval ("|Só desejo você, só quero você!      |")
+                     Escreval ("|                                    |")
+                     Escreval ("|                                    |")
+                     Escreval ("|____________________________________|")
+                     Escreval ("")
+                     Escreval	("Acho que já vi o suficiente por hoje, vou embora.")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Após uma breve soneca antes do amanhacer, ",det," vai ate a delegacia para")
+                     Escreval ("indagar o ",susp," sobre as provas que tinham encontrado no cofre.")
+                     Escreval ("- O que significa aquela carta sua para a senhorita Espandal?")
+                     Escreval ("- A algum tempo estava tendo muito contato com as Espandal e então comecei")
+                     Escreval (" a me apaixonar por ela, porem ela não correspondia.")
+                     Escreval ("- Entao enviei um par de brincos e um anel que comprei em uma joalheria,")
+                     Escreval ("só que ela nunca usava.")
+                     Escreval ("- Então decidi escrever uma carta declarando todo meu sentimento por ela,")
+                     Escreval ("mas quem leu foi a irmã de jaqueline, que ficou interessada em mim.")
+                     Escreval ("- Mas eu não correspondia.")
+                     Escreval ("- Então a alguns dias ela havia me pedido acompanha-la ate o banco e")
+                     Escreval ("traze-la com segurança para casa.")
+                     Escreval ("- Mas ela não pode ir no dia que pude e solicitou que fizesse isso,")
+                     Escreval ("pois confiava em mim. Sinto que estou me complicando ainda mais. Não é mesmo?")
+                     Escreval ("- Tenho outras situações para verificar. Boa noite!")
+                     Escreval ("")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Durante a noite o ",susp," decide que deve fugir, pois todas as provas que")
+                     Escreval ("estao encontrando incriminam-o. Pela manhã durante a saída para tomar sol,")
+                     Escreval ("percebe que os guardas estavam destraidos e se esconde, alguns minutos depois")
+                     Escreval ("consegue escapar pela porta principal. Entra na floresta e foge desesperadamente")
+                     Escreval ("para que ninguém possa encontrá-lo. Em um momento de descuido correndo ao lado de")
+                     Escreval ("um rio com correntezas fortes a terra cede e ele desliza na direção da agua, caindo")
+                     Escreval ("em meio a força da natureza. Após dias de procura o corpo de ",susp," é encontrado")
+                     Escreval ("em meio as pedras.
+                     Escreval ("- Fim de caso diz o delegado. Prendemos o verdadeiro assassino.")
+                     Escreval ("")
+                     continuar()
+                     Vidas<-0
+                     voltar<-1
+                  Fimse
+                  Se (ponto<=70) e (voltar<1) entao
+                     Escreval ("Enquanto o detetive investiga novamente a cena do crime o policial aguarda do lado")
+                     Escreval ("fora do apartamento. ",det," fecha a pota que se tranca, ele coloca a chave na")
+                     Escreval ("fechadura, porém ela não funciona por dentro.")
+                     Escreval ("Nesse momento o detetive se vê preso no quarto.")
+                     //Execução de procedimentos declarados antes:
+                     Repita
+                        ladoespelho()
+                        menuquarto()
+                     Ate chave=1
+                     voltar<-1
+                  Fimse
+                  Se ponto>100 entao
+                  limpatela
+                     topo()
+                     Escreval	("- O que está diferente daquela noite?")
+                     Escreval	("- Haviam sacos de dinheiro no chão. Devolvemos para o banco.")
+                     Escreval	("- Tem certeza que estas janelas estavam fechadas e trancadas naquela noite?")
+                     Escreval	("O detetive ", det," chega mais próximo da janela e avista um prego que")
+                     Escreval	(" ao ser apertado destrava a janela que se abre em seguida.")
+                     Escreval	("")
+                     Escreval	("O guarda assustado olha para ", det)
+                     Escreval	("- Como fez isso?")
+                     Escreval	("- Aquele prego não segurava a janela, ele soltava uma trava escondida.")
+                     Escreval	("- Acho que já vi o suficiente por hoje, vou embora.")
+                     Escreval ("")
+                     Escreval (".")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval (det," descansou um pouco e ao acordar começou a pensar um pouco sobre")
+                     Escreval ("as vozes que as testemunhas relataram ouvir no dia dos assassinatos.")
+                     Escreval ("Ele achou estranhos todos conseguirem reconhecer uma das vozes, porém")
+                     Escreval ("ninguém chegou a uma conclusão quanto a outra voz dentro do quarto.")
+                     Escreval ("- Estranho uma voz ser tão difícil de ser reconhcida.")
+                     Escreval ("Foi necessário usar um caderno de anotações e caneta para começar a")
+                     Escreval ("juntar algumas conclusões que vieram a sua cabeça.
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Depois de rabiscar e pensar, começou a considerar que o assassino")
+                     Escreval ("entrou e saiu pela janela, pois a porta estava trancada por dentro.")
+                     Escreval ("Para conseguir tal feito seria necessário possuir uma força sobre-")
+                     Escreval ("humana e agilidade, para conseguir entrar e fugir pelo para-raio,")
+                     Escreval ("colocar o corpo de uma das garotas na chaminé e ainda arracar a")
+                     Escreval ("cabeça da outra vítima com apenas um golpe.")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Após passar alguns minutos pensando decidiu sair e tomar um ar.")
+                     Escreval ("Chegando na praça Carlos Gomes parou em uma lanchonete e enquanto")
+                     Escreval ("tomava um café avistou uma notíia no jornal local que trazia uma")
+                     Escreval ("matéria sobre a fuga de um gorila de circo que passava pela cidade.")
+                     Escreval ("O domador havia deixado seu telefone para contato, caso alguém")
+                     Escreval ("avista-se o animal. Nesse momento ",det," levou sua mão a cabeça")
+                     Escreval ("e pensou, meu Deus, como eu não pensei nisso antes, preciso ligar")
+                     Escreval ("para o treinador desse animal.
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Após marcar um encontro em sua casa com o sr. Ricardo, responsável")
+                     Escreval ("pela criatura, deixou apostos sua arma ao alcanse das mãos, mas")
+                     Escreval ("longe dos olhos.")
+                     Escreval ("Logo após o treinador entrar em sua casa, ",det," saca a arma e")
+                     Escreval ("aponta contra a cabeça de seu observador. O homem se assusta e pede")
+                     Escreval ("calma a ele.")
+                     Escreval ("-Calma, por favor não me mate.")
+                     Escreval ("-Sente-se, quero explicações.")
+                     Escreval ("-Tudo bem, irei contar tudo a você. Está sendo um tremendo fardo.")
+                     Escreval ("O animal veio direto da África, lá era mal tratado e alimentado.")
+                     Escreval ("O dono do nosso circo viu ele ser mal tratado pelos seus antigos")
+                     Escreval ("donos, então ele resolveu comprar o animal para vende-lo à um")
+                     Escreval ("zoológico. Ele estava trancado em um armário, de onde só conseguia")
+                     Escreval ("vê-lo pelo buraco da fechadura.")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("-Em uma noite o gorila conseguiu escapar levando consigo uma navalha")
+                     Escreval ("que estava próxima ao armário. Peguei meu chicote para impedi-lo de")
+                     Escreval ("sair, mas meus esforços fracassaram. Peguei meu carro e começei a")
+                     Escreval ("procurar a procura-lo toda cidade, em certo momento o avistei subindo")
+                     Escreval ("em um para-raio em direção a uma janela aberta, segui ele e comecei")
+                     Escreval ("a subir. Ele entrou no quarto, pulei na direção da janela, mas acabei")
+                     Escreval ("ficando pendurado observando. Uma das mulheres desmaiou ao vê-lo. Então")
+                     Escreval ("ele foi na direção da outra moça, que penteava os cabelo em frete")
+                     Escreval ("a um espelho.")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Primeiramente o gorila ficou apenas atrás dela imitando")
+                     Escreval ("seus movimentos, ela se assustou e começou a gritar, ele se irritou")
+                     Escreval ("e puxando seu cabelo tirou-a da cadeira, o cabelo arrebentou, a moça")
+                     Escreval ("gritou então a critura com um golpe cortou-lhe a cabeça. A visão de")
+                     Escreval ("sangue deixou o macaco agitado, que voltou-se para outra mulher, ao")
+                     Escreval ("se virar acabou me vendo, envergonhado pegou o corpo da moça e o")
+                     Escreval ("escondeu na chaminé. Ele começou a quebrar tudo, foi então que critei")
+                     Escreval ("em francês 'sacre', 'diable'! Nesse momento os vizinhos e a polícia")
+                     Escreval ("na porta, o macaco grunhiu e pegou o corpo da mulher que havia cortado")
+                     Escreval ("a cabeça e a jogou pela janela. Assustado escorreguei pelo para-raio,")
+                     Escreval ("corri para longe.")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("Após o cuidador do animal ter fugido a fera pulou a janela batendo as")
+                     Escreval ("costas nela fechando-a, o que arrancou parte dos pelos das costas que")
+                     Escreval ("foram análisados anteriormente.")
+                     Escreval ("")
+                     Escreval ("-Um homem inocente foi preso como sendo autor dos assassinatos.
+                     Escreval ("-Não espero que acredite nem em metade do que lhe contei. Mas sou")
+                     Escreval ("inocente.")
+                     Escreval ("-Venha comigo, preciso que diga tudo que me contou ao delegado.")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("")
+                     Escreval ("Uma semana se passou...")
+                     continuar()
+                     limpatela
+                     topo()
+                     Escreval ("O animal foi capturado. Os testes de DNA foram comparados com os")
+                     Escreval ("resultados anteriores e o suspeito libertado. A fera foi vendida")
+                     Escreval ("a um zoológico da cidade.
+                     continuar()
+                     limpatela
+                     gameover()
+                     voltar<-1
+                  Fimse
+               Fimse
+            Fimse
+         Fimse
+      Ate voltar=1
+   fimenquanto
+   gameover()
+Fimalgoritmo
